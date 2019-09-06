@@ -1,5 +1,6 @@
 package com.tm.helpcircle.web.controller.post;
 
+import com.tm.helpcircle.biz.post.PostAccountAction;
 import com.tm.helpcircle.biz.post.PostAccountQuery;
 import com.tm.helpcircle.domain.lost.entity.LostAndFound;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +26,8 @@ public class PostAccountController {
 
     @Autowired
     private PostAccountQuery postAccountQuery;
+    @Autowired
+    private PostAccountAction postAccountAction;
 
     /**
      * 帖子列表
@@ -50,6 +54,16 @@ public class PostAccountController {
         PostAccount postAccount = postAccountQuery.getQuestions(postNO);
         return WebReturn.success(postAccount);
     }
-
+    /**
+     * 帖子添加(发布)
+     * @param postAccount
+     * @return
+     */
+    @GetMapping("/post/insert")
+    @ResponseBody
+    public WebReturn quesInsert(@RequestBody PostAccount postAccount){
+        int postAccountId = postAccountAction.getInsert(postAccount);
+        return WebReturn.success(postAccountId);
+    }
 
 }

@@ -43,4 +43,9 @@ public class PostAccountSupper {
             return null;
         return lostAndFounds.get(0);
     }
+
+    public int getInsert(PostAccount postAccount) {
+        int postAccountId = mapper.insertSelective(postAccount);
+        return postAccountId;
+    }
 }

@@ -31,4 +31,9 @@ public class PostAccountService {
         PostAccount postAccount = supper.getQuestions(lostArticleNo);
         return postAccount;
     }
+
+    public int getInsert(PostAccount postAccount) {
+        int postAccountId = supper.getInsert(postAccount);
+        return postAccountId;
+    }
 }
