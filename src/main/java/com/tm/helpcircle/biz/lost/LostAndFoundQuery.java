@@ -1,6 +1,8 @@
 package com.tm.helpcircle.biz.lost;
 
 import com.tm.helpcircle.domain.lost.entity.LostAndFound;
+import com.tm.helpcircle.domain.lost.entity.LostAndFoundComment;
+import com.tm.helpcircle.domain.lost.service.LostAndFoundCommentService;
 import com.tm.helpcircle.domain.lost.service.LostAndFoundService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,8 @@ public class LostAndFoundQuery {
 
     @Autowired
     private LostAndFoundService lostAndFoundService;
+    @Autowired
+    private LostAndFoundCommentService commentService;
 
     public List<LostAndFound> getQuestionsList(Integer status, Integer pageSize, Long page) {
         List<LostAndFound> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page);
@@ -34,6 +38,9 @@ public class LostAndFoundQuery {
     public LostAndFound getQuestions(String lostArticleNo) {
         LostAndFound lostAndFound = lostAndFoundService.getQuestions(lostArticleNo);
         lostAndFound.setLostArticleUrlList(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")));
+        //评论
+        List<LostAndFoundComment> comments =  commentService.getQuestionsList(lostArticleNo);
+        lostAndFound.setComments(comments);
         return lostAndFound;
     }
 

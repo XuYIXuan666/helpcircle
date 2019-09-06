@@ -92,6 +92,19 @@ public class LostAndFound implements Serializable {
      */
     private String lostArticleDetail;
 
+    /**
+     * 评论
+     */
+    private List<LostAndFoundComment> comments;
+
+    public List<LostAndFoundComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<LostAndFoundComment> comments) {
+        this.comments = comments;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
