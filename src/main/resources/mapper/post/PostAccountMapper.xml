@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tm.helpcircle.domain.post.persistent.PostAccountMapper">
+  <resultMap id="BaseResultMap" type="com.tm.helpcircle.domain.post.entity.PostAccount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="post_no" jdbcType="VARCHAR" property="postNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="open_no" jdbcType="VARCHAR" property="openNo" />
+    <result column="post_classification" jdbcType="VARCHAR" property="postClassification" />
+    <result column="post_name" jdbcType="VARCHAR" property="postName" />
+    <result column="post_url" jdbcType="VARCHAR" property="postUrl" />
+    <result column="post_status" jdbcType="VARCHAR" property="postStatus" />
+    <result column="post_delete" jdbcType="VARCHAR" property="postDelete" />
+    <result column="post_latitude" jdbcType="DECIMAL" property="postLatitude" />
+    <result column="post_longitude" jdbcType="DECIMAL" property="postLongitude" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tm.helpcircle.domain.post.entity.PostAccount">
+    <result column="post_detail" jdbcType="LONGVARCHAR" property="postDetail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, post_no, user_no, open_no, post_classification, post_name, post_url, post_status, 
+    post_delete, post_latitude, post_longitude, create_time, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    post_detail
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from post_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from post_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from post_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from post_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample">
+    delete from post_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+    insert into post_account (id, post_no, user_no, 
+      open_no, post_classification, post_name, 
+      post_url, post_status, post_delete, 
+      post_latitude, post_longitude, create_time, 
+      remark, post_detail)
+    values (#{id,jdbcType=BIGINT}, #{postNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{openNo,jdbcType=VARCHAR}, #{postClassification,jdbcType=VARCHAR}, #{postName,jdbcType=VARCHAR}, 
+      #{postUrl,jdbcType=VARCHAR}, #{postStatus,jdbcType=VARCHAR}, #{postDelete,jdbcType=VARCHAR}, 
+      #{postLatitude,jdbcType=DECIMAL}, #{postLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{postDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+    insert into post_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="postNo != null">
+        post_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="openNo != null">
+        open_no,
+      </if>
+      <if test="postClassification != null">
+        post_classification,
+      </if>
+      <if test="postName != null">
+        post_name,
+      </if>
+      <if test="postUrl != null">
+        post_url,
+      </if>
+      <if test="postStatus != null">
+        post_status,
+      </if>
+      <if test="postDelete != null">
+        post_delete,
+      </if>
+      <if test="postLatitude != null">
+        post_latitude,
+      </if>
+      <if test="postLongitude != null">
+        post_longitude,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="postDetail != null">
+        post_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="postNo != null">
+        #{postNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openNo != null">
+        #{openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="postClassification != null">
+        #{postClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="postName != null">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postUrl != null">
+        #{postUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="postStatus != null">
+        #{postStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="postDelete != null">
+        #{postDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="postLatitude != null">
+        #{postLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="postLongitude != null">
+        #{postLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="postDetail != null">
+        #{postDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultType="java.lang.Long">
+    select count(*) from post_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update post_account
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.postNo != null">
+        post_no = #{record.postNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNo != null">
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openNo != null">
+        open_no = #{record.openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postClassification != null">
+        post_classification = #{record.postClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postName != null">
+        post_name = #{record.postName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postUrl != null">
+        post_url = #{record.postUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postStatus != null">
+        post_status = #{record.postStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postDelete != null">
+        post_delete = #{record.postDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postLatitude != null">
+        post_latitude = #{record.postLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.postLongitude != null">
+        post_longitude = #{record.postLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postDetail != null">
+        post_detail = #{record.postDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update post_account
+    set id = #{record.id,jdbcType=BIGINT},
+      post_no = #{record.postNo,jdbcType=VARCHAR},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      open_no = #{record.openNo,jdbcType=VARCHAR},
+      post_classification = #{record.postClassification,jdbcType=VARCHAR},
+      post_name = #{record.postName,jdbcType=VARCHAR},
+      post_url = #{record.postUrl,jdbcType=VARCHAR},
+      post_status = #{record.postStatus,jdbcType=VARCHAR},
+      post_delete = #{record.postDelete,jdbcType=VARCHAR},
+      post_latitude = #{record.postLatitude,jdbcType=DECIMAL},
+      post_longitude = #{record.postLongitude,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      post_detail = #{record.postDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update post_account
+    set id = #{record.id,jdbcType=BIGINT},
+      post_no = #{record.postNo,jdbcType=VARCHAR},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      open_no = #{record.openNo,jdbcType=VARCHAR},
+      post_classification = #{record.postClassification,jdbcType=VARCHAR},
+      post_name = #{record.postName,jdbcType=VARCHAR},
+      post_url = #{record.postUrl,jdbcType=VARCHAR},
+      post_status = #{record.postStatus,jdbcType=VARCHAR},
+      post_delete = #{record.postDelete,jdbcType=VARCHAR},
+      post_latitude = #{record.postLatitude,jdbcType=DECIMAL},
+      post_longitude = #{record.postLongitude,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+    update post_account
+    <set>
+      <if test="postNo != null">
+        post_no = #{postNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openNo != null">
+        open_no = #{openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="postClassification != null">
+        post_classification = #{postClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="postName != null">
+        post_name = #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postUrl != null">
+        post_url = #{postUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="postStatus != null">
+        post_status = #{postStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="postDelete != null">
+        post_delete = #{postDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="postLatitude != null">
+        post_latitude = #{postLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="postLongitude != null">
+        post_longitude = #{postLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="postDetail != null">
+        post_detail = #{postDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+    update post_account
+    set post_no = #{postNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      open_no = #{openNo,jdbcType=VARCHAR},
+      post_classification = #{postClassification,jdbcType=VARCHAR},
+      post_name = #{postName,jdbcType=VARCHAR},
+      post_url = #{postUrl,jdbcType=VARCHAR},
+      post_status = #{postStatus,jdbcType=VARCHAR},
+      post_delete = #{postDelete,jdbcType=VARCHAR},
+      post_latitude = #{postLatitude,jdbcType=DECIMAL},
+      post_longitude = #{postLongitude,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      post_detail = #{postDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+    update post_account
+    set post_no = #{postNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      open_no = #{openNo,jdbcType=VARCHAR},
+      post_classification = #{postClassification,jdbcType=VARCHAR},
+      post_name = #{postName,jdbcType=VARCHAR},
+      post_url = #{postUrl,jdbcType=VARCHAR},
+      post_status = #{postStatus,jdbcType=VARCHAR},
+      post_delete = #{postDelete,jdbcType=VARCHAR},
+      post_latitude = #{postLatitude,jdbcType=DECIMAL},
+      post_longitude = #{postLongitude,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

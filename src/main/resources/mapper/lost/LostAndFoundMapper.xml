@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tm.helpcircle.domain.lost.persistent.LostAndFoundMapper">
+  <resultMap id="BaseResultMap" type="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="lost_article_no" jdbcType="VARCHAR" property="lostArticleNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="open_no" jdbcType="VARCHAR" property="openNo" />
+    <result column="lost_article_classification" jdbcType="VARCHAR" property="lostArticleClassification" />
+    <result column="lost_article_name" jdbcType="VARCHAR" property="lostArticleName" />
+    <result column="lost_article_url" jdbcType="VARCHAR" property="lostArticleUrl" />
+    <result column="lost_article_status" jdbcType="VARCHAR" property="lostArticleStatus" />
+    <result column="lost_article_delete" jdbcType="VARCHAR" property="lostArticleDelete" />
+    <result column="lost_article_latitude" jdbcType="DECIMAL" property="lostArticleLatitude" />
+    <result column="lost_article_longitude" jdbcType="DECIMAL" property="lostArticleLongitude" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    <result column="lost_article_detail" jdbcType="LONGVARCHAR" property="lostArticleDetail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, lost_article_no, user_no, open_no, lost_article_classification, lost_article_name, 
+    lost_article_url, lost_article_status, lost_article_delete, lost_article_latitude, 
+    lost_article_longitude, create_time, remark
+  </sql>
+  <sql id="Blob_Column_List">
+    lost_article_detail
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lost_and_found
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lost_and_found
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lost_and_found
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lost_and_found
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample">
+    delete from lost_and_found
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    insert into lost_and_found (id, lost_article_no, user_no, 
+      open_no, lost_article_classification, lost_article_name, 
+      lost_article_url, lost_article_status, lost_article_delete, 
+      lost_article_latitude, lost_article_longitude, 
+      create_time, remark, lost_article_detail
+      )
+    values (#{id,jdbcType=BIGINT}, #{lostArticleNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{openNo,jdbcType=VARCHAR}, #{lostArticleClassification,jdbcType=VARCHAR}, #{lostArticleName,jdbcType=VARCHAR}, 
+      #{lostArticleUrl,jdbcType=VARCHAR}, #{lostArticleStatus,jdbcType=VARCHAR}, #{lostArticleDelete,jdbcType=VARCHAR}, 
+      #{lostArticleLatitude,jdbcType=DECIMAL}, #{lostArticleLongitude,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{lostArticleDetail,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    insert into lost_and_found
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lostArticleNo != null">
+        lost_article_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="openNo != null">
+        open_no,
+      </if>
+      <if test="lostArticleClassification != null">
+        lost_article_classification,
+      </if>
+      <if test="lostArticleName != null">
+        lost_article_name,
+      </if>
+      <if test="lostArticleUrl != null">
+        lost_article_url,
+      </if>
+      <if test="lostArticleStatus != null">
+        lost_article_status,
+      </if>
+      <if test="lostArticleDelete != null">
+        lost_article_delete,
+      </if>
+      <if test="lostArticleLatitude != null">
+        lost_article_latitude,
+      </if>
+      <if test="lostArticleLongitude != null">
+        lost_article_longitude,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="lostArticleDetail != null">
+        lost_article_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="lostArticleNo != null">
+        #{lostArticleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openNo != null">
+        #{openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleClassification != null">
+        #{lostArticleClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleName != null">
+        #{lostArticleName,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleUrl != null">
+        #{lostArticleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleStatus != null">
+        #{lostArticleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleDelete != null">
+        #{lostArticleDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleLatitude != null">
+        #{lostArticleLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="lostArticleLongitude != null">
+        #{lostArticleLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleDetail != null">
+        #{lostArticleDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultType="java.lang.Long">
+    select count(*) from lost_and_found
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lost_and_found
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.lostArticleNo != null">
+        lost_article_no = #{record.lostArticleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNo != null">
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openNo != null">
+        open_no = #{record.openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleClassification != null">
+        lost_article_classification = #{record.lostArticleClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleName != null">
+        lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleUrl != null">
+        lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleStatus != null">
+        lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleDelete != null">
+        lost_article_delete = #{record.lostArticleDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleLatitude != null">
+        lost_article_latitude = #{record.lostArticleLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lostArticleLongitude != null">
+        lost_article_longitude = #{record.lostArticleLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostArticleDetail != null">
+        lost_article_detail = #{record.lostArticleDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update lost_and_found
+    set id = #{record.id,jdbcType=BIGINT},
+      lost_article_no = #{record.lostArticleNo,jdbcType=VARCHAR},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      open_no = #{record.openNo,jdbcType=VARCHAR},
+      lost_article_classification = #{record.lostArticleClassification,jdbcType=VARCHAR},
+      lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
+      lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
+      lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
+      lost_article_delete = #{record.lostArticleDelete,jdbcType=VARCHAR},
+      lost_article_latitude = #{record.lostArticleLatitude,jdbcType=DECIMAL},
+      lost_article_longitude = #{record.lostArticleLongitude,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      lost_article_detail = #{record.lostArticleDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lost_and_found
+    set id = #{record.id,jdbcType=BIGINT},
+      lost_article_no = #{record.lostArticleNo,jdbcType=VARCHAR},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      open_no = #{record.openNo,jdbcType=VARCHAR},
+      lost_article_classification = #{record.lostArticleClassification,jdbcType=VARCHAR},
+      lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
+      lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
+      lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
+      lost_article_delete = #{record.lostArticleDelete,jdbcType=VARCHAR},
+      lost_article_latitude = #{record.lostArticleLatitude,jdbcType=DECIMAL},
+      lost_article_longitude = #{record.lostArticleLongitude,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    update lost_and_found
+    <set>
+      <if test="lostArticleNo != null">
+        lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openNo != null">
+        open_no = #{openNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleClassification != null">
+        lost_article_classification = #{lostArticleClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleName != null">
+        lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleUrl != null">
+        lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleStatus != null">
+        lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleDelete != null">
+        lost_article_delete = #{lostArticleDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleLatitude != null">
+        lost_article_latitude = #{lostArticleLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="lostArticleLongitude != null">
+        lost_article_longitude = #{lostArticleLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lostArticleDetail != null">
+        lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    update lost_and_found
+    set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      open_no = #{openNo,jdbcType=VARCHAR},
+      lost_article_classification = #{lostArticleClassification,jdbcType=VARCHAR},
+      lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
+      lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
+      lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
+      lost_article_delete = #{lostArticleDelete,jdbcType=VARCHAR},
+      lost_article_latitude = #{lostArticleLatitude,jdbcType=DECIMAL},
+      lost_article_longitude = #{lostArticleLongitude,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+    update lost_and_found
+    set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      open_no = #{openNo,jdbcType=VARCHAR},
+      lost_article_classification = #{lostArticleClassification,jdbcType=VARCHAR},
+      lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
+      lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
+      lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
+      lost_article_delete = #{lostArticleDelete,jdbcType=VARCHAR},
+      lost_article_latitude = #{lostArticleLatitude,jdbcType=DECIMAL},
+      lost_article_longitude = #{lostArticleLongitude,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
