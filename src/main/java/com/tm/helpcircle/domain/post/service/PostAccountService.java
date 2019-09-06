@@ -20,7 +20,7 @@ public class PostAccountService {
 
 
     public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page) {
-        List<PostAccount> lostAndFoundList = supper.getQuestionsList(status, pageSize, page);
-        return lostAndFoundList;
+        List<PostAccount> postAccountList = supper.getQuestionsList(status, pageSize, page);
+        return postAccountList;
     }
 }

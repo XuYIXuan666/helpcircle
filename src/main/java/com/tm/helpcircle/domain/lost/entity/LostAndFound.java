@@ -47,7 +47,7 @@ public class LostAndFound implements Serializable {
      * 图片地址
      * 非数据库字段
      */
-    private List<String> lostArticleUrlList;;
+    private List<String> lostArticleUrlList;
 
     public List<String> getLostArticleUrlList() {
         return lostArticleUrlList;

@@ -2,6 +2,7 @@ package com.tm.helpcircle.domain.post.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * post_account
@@ -39,9 +40,22 @@ public class PostAccount implements Serializable {
     private String postName;
 
     /**
-     * 图片地址, 多个逗号分隔
+     * 图片地址, 多个|分隔
      */
     private String postUrl;
+    /**
+     * 图片地址
+     * 非数据库字段
+     */
+    private List<String> postUrlList;
+
+    public List<String> getPostUrlList() {
+        return postUrlList;
+    }
+
+    public void setPostUrlList(List<String> postUrlList) {
+        this.postUrlList = postUrlList;
+    }
 
     /**
      * 帖子状态;1-展示,2-过期

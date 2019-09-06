@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +21,10 @@ public class PostAccountQuery {
     private PostAccountService postAccountService;
 
     public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page) {
-        List<PostAccount> lostAndFoundList = postAccountService.getQuestionsList(status, pageSize, page);
-        return lostAndFoundList;
+        List<PostAccount> postAccountList = postAccountService.getQuestionsList(status, pageSize, page);
+        postAccountList.forEach(postAccount ->{
+            postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));
+        });
+        return postAccountList;
     }
 }

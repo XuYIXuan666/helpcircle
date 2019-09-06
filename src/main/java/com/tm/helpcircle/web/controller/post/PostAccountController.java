@@ -25,7 +25,7 @@ public class PostAccountController {
     private PostAccountQuery postAccountQuery;
 
     /**
-     * 失物招领列表
+     * 帖子列表
      * @param status
      * @return
      * @throws Exception
