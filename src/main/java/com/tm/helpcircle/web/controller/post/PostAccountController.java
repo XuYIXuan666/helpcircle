@@ -1,6 +1,7 @@
 package com.tm.helpcircle.web.controller.post;
 
 import com.tm.helpcircle.biz.post.PostAccountQuery;
+import com.tm.helpcircle.domain.lost.entity.LostAndFound;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
 import com.tm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
@@ -38,5 +39,17 @@ public class PostAccountController {
         List<PostAccount> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page);
         return WebReturn.success(lostAndFoundList);
     }
+    /**
+     * 帖子详情
+     * @param postNO
+     * @return
+     */
+    @GetMapping("/post/details")
+    @ResponseBody
+    public WebReturn quesDetails(@NotNull(message = "物品编号不能为空") @RequestParam(required = false) Long postNO){
+        PostAccount postAccount = postAccountQuery.getQuestions(postNO);
+        return WebReturn.success(postAccount);
+    }
+
 
 }

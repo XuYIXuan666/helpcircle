@@ -1,5 +1,7 @@
 package com.tm.helpcircle.domain.post.service;
 
+import com.tm.helpcircle.domain.lost.entity.LostAndFound;
+import com.tm.helpcircle.domain.lost.entity.LostAndFoundExample;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
 import com.tm.helpcircle.domain.post.entity.PostAccountExample;
 import com.tm.helpcircle.domain.post.persistent.PostAccountMapper;
@@ -31,5 +33,14 @@ public class PostAccountSupper {
         if(CollectionUtils.isEmpty(lostAndFounds))
             return null;
         return lostAndFounds;
+    }
+
+    public PostAccount getQuestions(Long postNO) {
+        PostAccountExample example = new PostAccountExample();
+        example.createCriteria().andPostNoEqualTo(postNO.toString());
+        List<PostAccount> lostAndFounds = mapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(lostAndFounds))
+            return null;
+        return lostAndFounds.get(0);
     }
 }

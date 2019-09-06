@@ -92,6 +92,16 @@ public class PostAccount implements Serializable {
      */
     private String postDetail;
 
+    private List<PostAccountComment> postAccountComments;
+
+    public List<PostAccountComment> getPostAccountComments() {
+        return postAccountComments;
+    }
+
+    public void setPostAccountComments(List<PostAccountComment> postAccountComments) {
+        this.postAccountComments = postAccountComments;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
