@@ -2,24 +2,34 @@ package com.tm.helpcircle.web.controller.post;
 
 import com.tm.helpcircle.biz.post.PostAccountAction;
 import com.tm.helpcircle.biz.post.PostAccountQuery;
-import com.tm.helpcircle.domain.lost.entity.LostAndFound;
+import com.tm.helpcircle.common.utils.FileUtils;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
 import com.tm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
 
 /**
  * @Author XuLiang
  * create 2019-09-04 14:34
  */
+@Controller
+@Validated
 public class PostAccountController {
 
     private final Logger logger = LoggerFactory.getLogger(PostAccountController.class);
@@ -28,7 +38,8 @@ public class PostAccountController {
     private PostAccountQuery postAccountQuery;
     @Autowired
     private PostAccountAction postAccountAction;
-
+    @Value("${web.upload-path}")
+    private String filePath;
     /**
      * 帖子列表
      * @param status
@@ -66,4 +77,15 @@ public class PostAccountController {
         return WebReturn.success(postAccountId);
     }
 
+    /**
+     *  图片上传
+     * @param file
+     * @return
+     */
+    @PostMapping(value = "/fileUpload")
+    public WebReturn fileUpload(@RequestParam(value = "file") MultipartFile file) {
+        String filePathImg = FileUtils.fileUpload(file, filePath);
+        System.out.println(filePathImg);
+        return WebReturn.success(filePathImg);
+    }
 }
