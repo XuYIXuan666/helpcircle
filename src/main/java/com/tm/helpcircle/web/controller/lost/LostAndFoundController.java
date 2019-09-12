@@ -48,9 +48,10 @@ public class LostAndFoundController {
     @GetMapping("/ques/list")
     @ResponseBody
     public WebReturn quesList(@NotNull(message = "状态不能为空") @RequestParam(required = false) Integer status,
+                          @RequestParam(required = false)String lostName,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
-        List<LostAndFound> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page);
+        List<LostAndFound> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
         return WebReturn.success(lostAndFoundList);
     }
     /**
