@@ -93,7 +93,7 @@ public class PostAccountController {
      * @param postAccountComment
      * @return
      */
-    @PostMapping("/post/insert")
+    @PostMapping("/post/insertComment")
     @ResponseBody
     public WebReturn quesInsertComment(@RequestBody PostAccountComment postAccountComment){
         Long postAccountId = postAccountCommentAction.quesInsertComment(postAccountComment);

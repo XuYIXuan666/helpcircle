@@ -92,7 +92,7 @@ public class LostAndFoundController {
      * @param lostAndFoundComment
      * @return
      */
-    @PostMapping("/post/insert")
+    @PostMapping("/ques/insertComment")
     @ResponseBody
     public WebReturn quesInsertComment(@RequestBody LostAndFoundComment lostAndFoundComment){
         Long postAccountId = lostAndFoundCommentAction.quesInsertComment(lostAndFoundComment);
