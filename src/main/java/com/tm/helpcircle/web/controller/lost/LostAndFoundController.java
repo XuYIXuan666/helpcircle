@@ -3,11 +3,10 @@ package com.tm.helpcircle.web.controller.lost;
 import com.tm.helpcircle.biz.lost.LostAndFoundAction;
 import com.tm.helpcircle.biz.lost.LostAndFoundCommentAction;
 import com.tm.helpcircle.biz.lost.LostAndFoundQuery;
-import com.tm.helpcircle.common.enums.LostAndFoundStatus;
+import com.tm.helpcircle.common.enums.LostAndFoundStatusEnum;
 import com.tm.helpcircle.common.utils.FileUtils;
 import com.tm.helpcircle.domain.lost.entity.LostAndFound;
 import com.tm.helpcircle.domain.lost.entity.LostAndFoundComment;
-import com.tm.helpcircle.domain.post.entity.PostAccountComment;
 import com.tm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +50,7 @@ public class LostAndFoundController {
                           @RequestParam(required = false)String lostName,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
-        String status = LostAndFoundStatus.UNCOLLECTED.getType();
+        String status = LostAndFoundStatusEnum.UNCOLLECTED.getType();
         List<LostAndFound> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
         return WebReturn.success(lostAndFoundList);
     }
@@ -74,7 +73,7 @@ public class LostAndFoundController {
     @PostMapping("/ques/insert")
     @ResponseBody
     public WebReturn quesInsert(@RequestBody LostAndFound lostAndFound){
-        lostAndFound.setLostArticleStatus(LostAndFoundStatus.UNCOLLECTED.getType());
+        lostAndFound.setLostArticleStatus(LostAndFoundStatusEnum.UNCOLLECTED.getType());
         int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFound);
         return WebReturn.success(lostAndFoundId);
     }
