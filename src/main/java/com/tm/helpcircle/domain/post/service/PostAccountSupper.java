@@ -26,9 +26,11 @@ public class PostAccountSupper {
     private PostAccountMapper mapper;
 
 
-    public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page) {
+    public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page,String postName) {
         PostAccountExample example = new PostAccountExample();
-        example.createCriteria().andPostStatusEqualTo(status.toString());
+        example.createCriteria()
+                .andPostStatusEqualTo(status.toString())
+                .andPostNameLike("%"+postName+"%");
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);
         List<PostAccount> lostAndFounds = mapper.selectByExample(example);

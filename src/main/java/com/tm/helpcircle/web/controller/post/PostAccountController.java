@@ -49,9 +49,10 @@ public class PostAccountController {
     @GetMapping("/post/list")
     @ResponseBody
     public WebReturn list(@NotNull(message = "状态不能为空") @RequestParam(required = false) Integer status,
+                          @RequestParam(required = false) String postName,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
-        List<PostAccount> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page);
+        List<PostAccount> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page,postName);
         return WebReturn.success(lostAndFoundList);
     }
     /**
