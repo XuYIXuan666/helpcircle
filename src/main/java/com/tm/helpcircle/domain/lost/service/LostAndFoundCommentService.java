@@ -16,4 +16,9 @@ public class LostAndFoundCommentService {
         List<LostAndFoundComment> comments =  support.getQuestionsList(lostArticleNo);
         return comments;
     }
+
+    public Long quesInsertComment(LostAndFoundComment lostAndFoundComment) {
+        Long lostAndFoundId = support.quesInsertComment(lostAndFoundComment);
+        return lostAndFoundId;
+    }
 }

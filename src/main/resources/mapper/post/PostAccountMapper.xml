@@ -160,7 +160,7 @@
       #{postLatitude,jdbcType=DECIMAL}, #{postLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{postDetail,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount" useGeneratedKeys="true" keyProperty="id">
     insert into post_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

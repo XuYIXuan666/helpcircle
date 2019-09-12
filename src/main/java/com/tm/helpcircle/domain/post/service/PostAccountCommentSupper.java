@@ -27,4 +27,9 @@ public class PostAccountCommentSupper {
             return null;
         return postAccountCommentList;
     }
+
+    public Long quesInsertComment(PostAccountComment postAccountComment) {
+        mapper.insertSelective(postAccountComment);
+        return postAccountComment.getId();
+    }
 }

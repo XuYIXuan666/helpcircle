@@ -20,4 +20,9 @@ public class PostAccountCommentService {
         List<PostAccountComment> postAccountCommentList  = supper.getQuestions(postNO);
         return postAccountCommentList;
     }
+
+    public Long quesInsertComment(PostAccountComment postAccountComment) {
+        Long postAccountId = supper.quesInsertComment(postAccountComment);
+        return postAccountId;
+    }
 }

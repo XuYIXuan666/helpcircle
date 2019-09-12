@@ -1,27 +1,22 @@
 package com.tm.helpcircle.web.controller.post;
 
 import com.tm.helpcircle.biz.post.PostAccountAction;
+import com.tm.helpcircle.biz.post.PostAccountCommentAction;
 import com.tm.helpcircle.biz.post.PostAccountQuery;
 import com.tm.helpcircle.common.utils.FileUtils;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
+import com.tm.helpcircle.domain.post.entity.PostAccountComment;
 import com.tm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -38,8 +33,13 @@ public class PostAccountController {
     private PostAccountQuery postAccountQuery;
     @Autowired
     private PostAccountAction postAccountAction;
-    @Value("${web.upload-path}")
+    @Autowired
+    private PostAccountCommentAction  postAccountCommentAction;
+
+    @Value("${upload-path-imgPost}")
     private String filePath;
+    @Value("${exhibition-path-imgPost}")
+    private String exhibitionPath;
     /**
      * 帖子列表
      * @param status
@@ -70,7 +70,7 @@ public class PostAccountController {
      * @param postAccount
      * @return
      */
-    @GetMapping("/post/insert")
+    @PostMapping("/post/insert")
     @ResponseBody
     public WebReturn quesInsert(@RequestBody PostAccount postAccount){
         int postAccountId = postAccountAction.getInsert(postAccount);
@@ -82,10 +82,22 @@ public class PostAccountController {
      * @param file
      * @return
      */
-    @PostMapping(value = "/fileUpload")
+    @PostMapping(value = "/post/fileUpload")
+    @ResponseBody
     public WebReturn fileUpload(@RequestParam(value = "file") MultipartFile file) {
-        String filePathImg = FileUtils.fileUpload(file, filePath);
-        System.out.println(filePathImg);
+        String filePathImg = FileUtils.fileUpload(file, filePath,exhibitionPath);
         return WebReturn.success(filePathImg);
     }
+    /**
+     * 帖子评论
+     * @param postAccountComment
+     * @return
+     */
+    @PostMapping("/post/insert")
+    @ResponseBody
+    public WebReturn quesInsertComment(@RequestBody PostAccountComment postAccountComment){
+        Long postAccountId = postAccountCommentAction.quesInsertComment(postAccountComment);
+        return WebReturn.success(postAccountId);
+    }
+
 }

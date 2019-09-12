@@ -163,7 +163,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{lostArticleDetail,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound" useGeneratedKeys="true" keyProperty="id">
     insert into lost_and_found
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

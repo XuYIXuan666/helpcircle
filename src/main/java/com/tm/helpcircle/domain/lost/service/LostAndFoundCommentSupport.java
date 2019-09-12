@@ -24,4 +24,9 @@ public class LostAndFoundCommentSupport {
             return null;
         return comments;
     }
+
+    public Long quesInsertComment(LostAndFoundComment lostAndFoundComment) {
+        mapper.insertSelective(lostAndFoundComment);
+        return lostAndFoundComment.getId();
+    }
 }

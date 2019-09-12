@@ -1,16 +1,14 @@
 package com.tm.helpcircle.common.utils;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Random;
+
 
 public class FileUtils {
 
-    public static String fileUpload(MultipartFile file, String filePath) {
+    public static String fileUpload(MultipartFile file, String filePath,String exhibitionPath) {
         if (file.isEmpty()) {
             return "文件为空空";
         }
@@ -26,7 +24,9 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String filename = fileName;
+        String filename =exhibitionPath +fileName;
         return filename;
     }
+
+
 }
