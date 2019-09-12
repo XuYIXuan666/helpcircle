@@ -21,7 +21,7 @@ public interface UserMappeer {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(String openId);
+    User selectByPrimaryKey1(String openId);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

@@ -16,7 +16,7 @@ public class UserSupper {
     private UserMappeer mappeer;
 
     public User selectById(String openid) {
-        User user = mappeer.selectByPrimaryKey(openid);
+        User user = mappeer.selectByPrimaryKey1(openid);
         return user;
     }
 

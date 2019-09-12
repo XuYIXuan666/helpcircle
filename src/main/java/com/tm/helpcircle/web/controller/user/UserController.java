@@ -55,7 +55,7 @@ public class UserController {
             return WebReturn.failure("500", "签名校验失败", null);
         }
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
-        User user = this.userQuery.selectById(openid);
+        User user = userQuery.selectById(openid);
         // uuid生成唯一key，用于维护微信小程序用户与服务端的会话
         String skey = UUID.randomUUID().toString();
         if (user == null) {
