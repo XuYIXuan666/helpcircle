@@ -26,7 +26,7 @@ public class PostAccountQuery {
     @Autowired
     private PostAccountCommentService commentService;
 
-    public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page,String postName) {
+    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page,String postName) {
         List<PostAccount> postAccountList = postAccountService.getQuestionsList(status, pageSize, page, postName);
         postAccountList.forEach(postAccount ->{
             postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));

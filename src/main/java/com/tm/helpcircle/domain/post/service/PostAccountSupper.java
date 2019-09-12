@@ -26,10 +26,10 @@ public class PostAccountSupper {
     private PostAccountMapper mapper;
 
 
-    public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page,String postName) {
+    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page,String postName) {
         PostAccountExample example = new PostAccountExample();
         example.createCriteria()
-                .andPostStatusEqualTo(status.toString())
+                .andPostStatusEqualTo(status)
                 .andPostNameLike("%"+postName+"%");
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);

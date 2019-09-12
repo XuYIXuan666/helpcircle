@@ -27,7 +27,7 @@ public class LostAndFoundQuery {
     @Autowired
     private LostAndFoundCommentService commentService;
 
-    public List<LostAndFound> getQuestionsList(Integer status, Integer pageSize, Long page,String lostName) {
+    public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page,String lostName) {
         List<LostAndFound> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
         lostAndFoundList.forEach(lostAndFound -> {
             lostAndFound.setLostArticleUrl(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")).get(0));

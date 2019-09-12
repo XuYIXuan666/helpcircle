@@ -16,7 +16,7 @@ public class LostAndFoundService {
     @Autowired
     private LostAndFoundSupport lostAndFoundSupport;
 
-    public List<LostAndFound> getQuestionsList(Integer status, Integer pageSize, Long page,String lostName) {
+    public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page,String lostName) {
         List<LostAndFound> lostAndFoundList = lostAndFoundSupport.getQuestionsList(status, pageSize, page, lostName);
         return lostAndFoundList;
     }

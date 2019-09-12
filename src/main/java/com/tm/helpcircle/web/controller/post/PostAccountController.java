@@ -3,6 +3,7 @@ package com.tm.helpcircle.web.controller.post;
 import com.tm.helpcircle.biz.post.PostAccountAction;
 import com.tm.helpcircle.biz.post.PostAccountCommentAction;
 import com.tm.helpcircle.biz.post.PostAccountQuery;
+import com.tm.helpcircle.common.enums.PostAccountStatusEnum;
 import com.tm.helpcircle.common.utils.FileUtils;
 import com.tm.helpcircle.domain.post.entity.PostAccount;
 import com.tm.helpcircle.domain.post.entity.PostAccountComment;
@@ -42,16 +43,16 @@ public class PostAccountController {
     private String exhibitionPath;
     /**
      * 帖子列表
-     * @param status
      * @return
      * @throws Exception
      */
     @GetMapping("/post/list")
     @ResponseBody
-    public WebReturn list(@NotNull(message = "状态不能为空") @RequestParam(required = false) Integer status,
+    public WebReturn list(
                           @RequestParam(required = false) String postName,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
+        String  status = PostAccountStatusEnum.UNDELETED.getType();
         List<PostAccount> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page,postName);
         return WebReturn.success(lostAndFoundList);
     }
@@ -74,6 +75,7 @@ public class PostAccountController {
     @PostMapping("/post/insert")
     @ResponseBody
     public WebReturn quesInsert(@RequestBody PostAccount postAccount){
+        postAccount.setPostStatus(PostAccountStatusEnum.UNDELETED.getType());
         int postAccountId = postAccountAction.getInsert(postAccount);
         return WebReturn.success(postAccountId);
     }

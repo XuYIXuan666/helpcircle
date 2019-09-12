@@ -19,10 +19,10 @@ public class LostAndFoundSupport {
     @Autowired
     private LostAndFoundMapper mapper;
 
-    public List<LostAndFound> getQuestionsList(Integer status, Integer pageSize, Long page,String lostName) {
+    public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page,String lostName) {
         LostAndFoundExample example = new LostAndFoundExample();
         example.createCriteria()
-                .andLostArticleStatusEqualTo(status.toString())
+                .andLostArticleStatusEqualTo(status)
                 .andLostArticleNameLike("%"+lostName+"%");
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);

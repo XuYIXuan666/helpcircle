@@ -22,7 +22,7 @@ public class PostAccountService {
     private PostAccountSupper supper;
 
 
-    public List<PostAccount> getQuestionsList(Integer status, Integer pageSize, Long page,String postName) {
+    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page,String postName) {
         List<PostAccount> postAccountList = supper.getQuestionsList(status, pageSize, page, postName);
         return postAccountList;
     }

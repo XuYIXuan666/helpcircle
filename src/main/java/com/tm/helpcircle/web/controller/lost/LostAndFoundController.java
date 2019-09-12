@@ -3,6 +3,7 @@ package com.tm.helpcircle.web.controller.lost;
 import com.tm.helpcircle.biz.lost.LostAndFoundAction;
 import com.tm.helpcircle.biz.lost.LostAndFoundCommentAction;
 import com.tm.helpcircle.biz.lost.LostAndFoundQuery;
+import com.tm.helpcircle.common.enums.LostAndFoundStatus;
 import com.tm.helpcircle.common.utils.FileUtils;
 import com.tm.helpcircle.domain.lost.entity.LostAndFound;
 import com.tm.helpcircle.domain.lost.entity.LostAndFoundComment;
@@ -42,15 +43,15 @@ public class LostAndFoundController {
     private String exhibitionPath;
     /**
      * 失物招领列表
-     * @param status
      * @return
      */
     @GetMapping("/ques/list")
     @ResponseBody
-    public WebReturn quesList(@NotNull(message = "状态不能为空") @RequestParam(required = false) Integer status,
+    public WebReturn quesList(
                           @RequestParam(required = false)String lostName,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
+        String status = LostAndFoundStatus.UNCOLLECTED.getType();
         List<LostAndFound> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
         return WebReturn.success(lostAndFoundList);
     }
@@ -73,6 +74,7 @@ public class LostAndFoundController {
     @PostMapping("/ques/insert")
     @ResponseBody
     public WebReturn quesInsert(@RequestBody LostAndFound lostAndFound){
+        lostAndFound.setLostArticleStatus(LostAndFoundStatus.UNCOLLECTED.getType());
         int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFound);
         return WebReturn.success(lostAndFoundId);
     }
