@@ -3,6 +3,7 @@ package com.tm.helpcircle.domain.lost.service;
 import com.tm.helpcircle.domain.lost.entity.LostAndFound;
 import com.tm.helpcircle.domain.lost.entity.LostAndFoundExample;
 import com.tm.helpcircle.domain.lost.persistent.LostAndFoundMapper;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -21,9 +22,14 @@ public class LostAndFoundSupport {
 
     public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page,String lostName) {
         LostAndFoundExample example = new LostAndFoundExample();
-        example.createCriteria()
-                .andLostArticleStatusEqualTo(status)
-                .andLostArticleNameLike("%"+lostName+"%");
+        if (Strings.isNotBlank(lostName)){
+            example.createCriteria()
+                    .andLostArticleStatusEqualTo(status)
+                    .andLostArticleNameLike("%"+lostName+"%");
+        }else {
+            example.createCriteria()
+                    .andLostArticleStatusEqualTo(status);
+        }
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);
         List<LostAndFound> lostAndFounds = mapper.selectByExample(example);

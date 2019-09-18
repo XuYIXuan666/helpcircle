@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,15 +29,19 @@ public class PostAccountQuery {
 
     public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page,String postName) {
         List<PostAccount> postAccountList = postAccountService.getQuestionsList(status, pageSize, page, postName);
-        postAccountList.forEach(postAccount ->{
-            postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));
-        });
+        if(postAccountList != null){
+            postAccountList.forEach(postAccount ->{
+                postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));
+            });
+        }
         return postAccountList;
     }
 
     public PostAccount getQuestions(Long postNo) {
         PostAccount postAccount = postAccountService.getQuestions(postNo);
-        postAccount.setPostUrlList(Arrays.asList(postAccount.getPostUrl().split("\\|")));
+        if(postAccount.getPostUrl() != null) {
+            postAccount.setPostUrlList(Arrays.asList(postAccount.getPostUrl().split("\\|")));
+        }
         //评论
         List<PostAccountComment> postAccountCommentList = commentService.getQuestions(postNo);
         postAccount.setPostAccountComments(postAccountCommentList);

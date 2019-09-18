@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,15 +30,19 @@ public class LostAndFoundQuery {
 
     public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page,String lostName) {
         List<LostAndFound> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
-        lostAndFoundList.forEach(lostAndFound -> {
-            lostAndFound.setLostArticleUrl(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")).get(0));
-        });
+        if(lostAndFoundList != null){
+            lostAndFoundList.forEach(lostAndFound -> {
+                lostAndFound.setLostArticleUrl(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")).get(0));
+            });
+        }
         return lostAndFoundList;
     }
 
     public LostAndFound getQuestions(String lostArticleNo) {
         LostAndFound lostAndFound = lostAndFoundService.getQuestions(lostArticleNo);
-        lostAndFound.setLostArticleUrlList(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")));
+        if(lostAndFound.getLostArticleUrl() != null){
+            lostAndFound.setLostArticleUrlList(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")));
+        }
         //评论
         List<LostAndFoundComment> comments =  commentService.getQuestionsList(lostArticleNo);
         lostAndFound.setComments(comments);
