@@ -31,7 +31,12 @@ public class PostAccountQuery {
         List<PostAccount> postAccountList = postAccountService.getQuestionsList(status, pageSize, page, postName);
         if(postAccountList != null){
             postAccountList.forEach(postAccount ->{
-                postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));
+                if(postAccount != null && postAccount.getPostUrl() != null && !postAccount.getPostUrl().equals("")){
+                    List<String> strings = Arrays.asList(postAccount.getPostUrl().split("\\|"));
+                    if(strings.size() >= 1){
+                        postAccount.setPostUrl(Arrays.asList(postAccount.getPostUrl().split("\\|")).get(0));
+                    }
+                }
             });
         }
         return postAccountList;
@@ -39,7 +44,7 @@ public class PostAccountQuery {
 
     public PostAccount getQuestions(Long postNo) {
         PostAccount postAccount = postAccountService.getQuestions(postNo);
-        if(postAccount.getPostUrl() != null) {
+        if(postAccount != null && postAccount.getPostUrl() != null && !postAccount.getPostUrl().equals("")){
             postAccount.setPostUrlList(Arrays.asList(postAccount.getPostUrl().split("\\|")));
         }
         //评论

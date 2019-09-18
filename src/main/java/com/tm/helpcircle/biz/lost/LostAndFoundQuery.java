@@ -32,7 +32,12 @@ public class LostAndFoundQuery {
         List<LostAndFound> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
         if(lostAndFoundList != null){
             lostAndFoundList.forEach(lostAndFound -> {
-                lostAndFound.setLostArticleUrl(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")).get(0));
+                if(lostAndFound != null && lostAndFound.getLostArticleUrl() != null && !lostAndFound.getLostArticleUrl().equals("")){
+                    List<String> strings = Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|"));
+                    if(strings.size() >= 1){
+                        lostAndFound.setLostArticleUrl(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")).get(0));
+                    }
+                }
             });
         }
         return lostAndFoundList;
@@ -40,7 +45,7 @@ public class LostAndFoundQuery {
 
     public LostAndFound getQuestions(String lostArticleNo) {
         LostAndFound lostAndFound = lostAndFoundService.getQuestions(lostArticleNo);
-        if(lostAndFound.getLostArticleUrl() != null){
+        if(lostAndFound != null && lostAndFound.getLostArticleUrl() != null && !lostAndFound.getLostArticleUrl().equals("")){
             lostAndFound.setLostArticleUrlList(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")));
         }
         //评论
