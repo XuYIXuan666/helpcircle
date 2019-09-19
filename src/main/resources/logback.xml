@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <contextName>tm-helpcircle-web</contextName>
+    <property name="LOG_PATH" value="${log.root.path:-/logs}" />
+    <property name="LOG_CONTEXT" value="${log.root.context:-helpcircleweb}" />
+    <property name="CHARSET" value="UTF-8" />
+    <!-- magenta:洋红 -->
+    <!-- boldMagenta:粗红-->
+    <!-- cyan:青色 -->
+    <!-- white:白色 -->
+    <!-- magenta:洋红 -->
+    <property name="CONSOLE_LOG_PATTERN"
+      value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 错误日志配置 RollingFileAppender继承自ch.qos.logback.core.FileAppender -->
+    <appender name="common-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 限定只输出ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_PATH}/${LOG_CONTEXT}_error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_CONTEXT}_error_%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <!-- 保留天数 -->
+            <maxHistory>${log.maxHistory:-90}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.maxFileSize:-5MB}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder charset="${CHARSET}" class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-15d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}[%file:%line] %X{userId}-%X{_sessionId}-%X{_ip}  %msg%n %ex{2}</pattern>
+            <charset>${CHARSET}</charset>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+    <!-- 应用日志 -->
+    <appender name="common-default" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_CONTEXT}_default.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_CONTEXT}_default.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <!-- 保留天数 -->
+            <maxHistory>${log.maxHistory:-60}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.maxFileSize:-5MB}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- HTML文件输出:encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder"
+        pattern class="ch.qos.logback.classic.html.HTMLLayout" -->
+        <append>true</append>
+        <encoder charset="${CHARSET}" class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-15d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}[%file:%line] %X{userId}-%X{_sessionId}-%X{_ip}  %msg%n %ex{2}</pattern>
+            <charset>${CHARSET}</charset>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+    <logger name="ch.qos.logback.classic" level="${log.root.level:-INFO}"/>
+    <logger name="ch.qos.logback.core.joran.action.AppenderRefAction" level="${log.root.level:-INFO}"/>
+
+    <logger name="java.sql" level="${log.root.level:-INFO}"/>
+    <logger name="jdbc" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.hibernate" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.cache" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.sql" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.engine" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.type" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.util" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.cfg" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.springframework" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.apache" level="${log.root.level:-INFO}"/>
+    <logger name="org.apache.shiro" level="${log.root.level:-INFO}"/>
+    <logger name="org.apache.mina" level="${log.root.level:-INFO}"/>
+
+    <logger name="com.danga.MemCached" level="${log.root.level:-INFO}"/>
+    <logger name="net.sf.ehcache" level="${log.root.level:-INFO}"/>
+    <logger name="freemarker" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.eclipse.jetty" level="${log.root.level:-INFO}"/>
+    <logger name="com.opensymphony" level="${log.root.level:-INFO}"/>
+    <logger name="net.sf" level="${log.root.level:-INFO}"/>
+
+    <logger name="druid.sql.Statement" level="${log.root.level:-INFO}"/>
+    <logger name="com.alibaba.dubbo" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.apache.zookeeper" level="INFO"/>
+
+    <root level="${log.root.level:-DEBUG}">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="common-error"/>
+        <appender-ref ref="common-default"/>
+    </root>
+
+</configuration>
