@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tm.helpcircle.domain.user.persistent.UserMappeer">
-  <resultMap id="BaseResultMap" type="com.tm.helpcircle.domain.user.entity.User">
+<mapper namespace="com.xm.helpcircle.domain.user.persistent.UserMappeer">
+  <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.user.entity.User">
     <id column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="skey" jdbcType="VARCHAR" property="skey" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -76,7 +76,7 @@
     open_id, skey, create_time, last_visit_time, session_key, city, province, country, 
     avatar_url, gender, nick_name
   </sql>
-  <select id="selectByExample" parameterType="com.tm.helpcircle.domain.user.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.xm.helpcircle.domain.user.entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -108,13 +108,13 @@
     delete from user
     where open_id = #{openId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tm.helpcircle.domain.user.entity.UserExample">
+  <delete id="deleteByExample" parameterType="com.xm.helpcircle.domain.user.entity.UserExample">
     delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tm.helpcircle.domain.user.entity.User">
+  <insert id="insert" parameterType="com.xm.helpcircle.domain.user.entity.User">
     insert into user (open_id, skey, create_time, 
       last_visit_time, session_key, city, 
       province, country, avatar_url, 
@@ -124,7 +124,7 @@
       #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{nickName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.user.entity.User">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.user.entity.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="openId != null">
@@ -197,7 +197,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tm.helpcircle.domain.user.entity.UserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.xm.helpcircle.domain.user.entity.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -261,7 +261,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tm.helpcircle.domain.user.entity.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.user.entity.User">
     update user
     <set>
       <if test="skey != null">
@@ -297,7 +297,7 @@
     </set>
     where open_id = #{openId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tm.helpcircle.domain.user.entity.User">
+  <update id="updateByPrimaryKey" parameterType="com.xm.helpcircle.domain.user.entity.User">
     update user
     set skey = #{skey,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

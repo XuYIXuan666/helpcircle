@@ -1,4 +1,4 @@
-package com.tm.helpcircle.demo;
+package com.xm.helpcircle.demo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

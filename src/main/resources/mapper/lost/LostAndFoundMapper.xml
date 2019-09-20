@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tm.helpcircle.domain.lost.persistent.LostAndFoundMapper">
-  <resultMap id="BaseResultMap" type="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+<mapper namespace="com.xm.helpcircle.domain.lost.persistent.LostAndFoundMapper">
+  <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="lost_article_no" jdbcType="VARCHAR" property="lostArticleNo" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
@@ -16,7 +16,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     <result column="lost_article_detail" jdbcType="LONGVARCHAR" property="lostArticleDetail" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -85,7 +85,7 @@
   <sql id="Blob_Column_List">
     lost_article_detail
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -109,7 +109,7 @@
       </if>
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -143,13 +143,13 @@
     delete from lost_and_found
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample">
+  <delete id="deleteByExample" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundExample">
     delete from lost_and_found
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <insert id="insert" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     insert into lost_and_found (id, lost_article_no, user_no, 
       open_no, lost_article_classification, lost_article_name, 
       lost_article_url, lost_article_status, lost_article_delete, 
@@ -163,7 +163,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{lostArticleDetail,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound" useGeneratedKeys="true" keyProperty="id">
     insert into lost_and_found
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -254,7 +254,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFoundExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundExample" resultType="java.lang.Long">
     select count(*) from lost_and_found
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -349,7 +349,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     update lost_and_found
     <set>
       <if test="lostArticleNo != null">
@@ -394,7 +394,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     update lost_and_found
     set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
@@ -411,7 +411,7 @@
       lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tm.helpcircle.domain.lost.entity.LostAndFound">
+  <update id="updateByPrimaryKey" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
     update lost_and_found
     set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},

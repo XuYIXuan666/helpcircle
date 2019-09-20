@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tm.helpcircle.domain.post.persistent.PostAccountMapper">
-  <resultMap id="BaseResultMap" type="com.tm.helpcircle.domain.post.entity.PostAccount">
+<mapper namespace="com.xm.helpcircle.domain.post.persistent.PostAccountMapper">
+  <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.post.entity.PostAccount">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="post_no" jdbcType="VARCHAR" property="postNo" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
@@ -16,7 +16,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.post.entity.PostAccount">
     <result column="post_detail" jdbcType="LONGVARCHAR" property="postDetail" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -84,7 +84,7 @@
   <sql id="Blob_Column_List">
     post_detail
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -108,7 +108,7 @@
       </if>
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -142,13 +142,13 @@
     delete from post_account
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample">
+  <delete id="deleteByExample" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountExample">
     delete from post_account
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <insert id="insert" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
     insert into post_account (id, post_no, user_no, 
       open_no, post_classification, post_name, 
       post_url, post_status, post_delete, 
@@ -160,7 +160,7 @@
       #{postLatitude,jdbcType=DECIMAL}, #{postLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=VARCHAR}, #{postDetail,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount" useGeneratedKeys="true" keyProperty="id">
     insert into post_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -251,7 +251,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tm.helpcircle.domain.post.entity.PostAccountExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountExample" resultType="java.lang.Long">
     select count(*) from post_account
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -346,7 +346,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
     update post_account
     <set>
       <if test="postNo != null">
@@ -391,7 +391,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
     update post_account
     set post_no = #{postNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
@@ -408,7 +408,7 @@
       post_detail = #{postDetail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tm.helpcircle.domain.post.entity.PostAccount">
+  <update id="updateByPrimaryKey" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
     update post_account
     set post_no = #{postNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
