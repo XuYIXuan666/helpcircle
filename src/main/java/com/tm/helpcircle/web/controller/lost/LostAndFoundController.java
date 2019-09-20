@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *  失物招领
@@ -74,6 +75,8 @@ public class LostAndFoundController {
     @ResponseBody
     public WebReturn quesInsert(@RequestBody LostAndFound lostAndFound){
         lostAndFound.setLostArticleStatus(LostAndFoundStatusEnum.UNCOLLECTED.getType());
+        String lostArticleNo = UUID.randomUUID().toString();
+        lostAndFound.setLostArticleNo(lostArticleNo);
         int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFound);
         return WebReturn.success(lostAndFoundId);
     }

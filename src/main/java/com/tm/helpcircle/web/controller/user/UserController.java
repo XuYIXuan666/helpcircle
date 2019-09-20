@@ -8,7 +8,10 @@ import com.tm.helpcircle.biz.user.UserUserAction;
 import com.tm.helpcircle.common.utils.WechatUtil;
 import com.tm.helpcircle.domain.user.entity.User;
 import com.tm.helpcircle.web.controller.config.WebReturn;
+import com.tm.helpcircle.web.controller.post.PostAccountController;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,8 @@ import java.util.UUID;
  */
 @Controller
 public class UserController {
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserQuery userQuery;
@@ -39,6 +44,7 @@ public class UserController {
                                 @RequestParam(value = "signature", required = false) String signature,
                                 @RequestParam(value = "encrypteData", required = false) String encrypteData,
                                 @RequestParam(value = "iv", required = false) String iv) {
+
         // 用户非敏感信息：rawData
         // 签名：signature
         JSONObject rawDataJson = JSON.parseObject(rawData);
@@ -89,6 +95,7 @@ public class UserController {
         }
         //encrypteData比rowData多了appid和openid
         JSONObject userInfo = WechatUtil.getUserInfo(encrypteData, sessionKey, iv);
+        logger.info("user_login_userInfo",userInfo);
         //6. 把新的skey返回给小程序
         return WebReturn.success("200",null,skey);
     }

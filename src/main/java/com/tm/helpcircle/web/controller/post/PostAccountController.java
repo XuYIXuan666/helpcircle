@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -76,6 +77,8 @@ public class PostAccountController {
     @ResponseBody
     public WebReturn quesInsert(@RequestBody PostAccount postAccount){
         postAccount.setPostStatus(PostAccountStatusEnum.UNDELETED.getType());
+        String postNo = UUID.randomUUID().toString();
+        postAccount.setPostName(postNo);
         int postAccountId = postAccountAction.getInsert(postAccount);
         return WebReturn.success(postAccountId);
     }
