@@ -2,6 +2,7 @@ package com.xm.helpcircle.domain.post.persistent;
 
 import com.xm.helpcircle.domain.post.entity.PostAccount;
 import com.xm.helpcircle.domain.post.entity.PostAccountExample;
+import com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,25 +16,25 @@ public interface PostAccountMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(PostAccount record);
+    int insert(PostAccountWithBLOBs record);
 
-    int insertSelective(PostAccount record);
+    int insertSelective(PostAccountWithBLOBs record);
 
-    List<PostAccount> selectByExampleWithBLOBs(PostAccountExample example);
+    List<PostAccountWithBLOBs> selectByExampleWithBLOBs(PostAccountExample example);
 
     List<PostAccount> selectByExample(PostAccountExample example);
 
-    PostAccount selectByPrimaryKey(Long id);
+    PostAccountWithBLOBs selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") PostAccount record, @Param("example") PostAccountExample example);
+    int updateByExampleSelective(@Param("record") PostAccountWithBLOBs record, @Param("example") PostAccountExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") PostAccount record, @Param("example") PostAccountExample example);
+    int updateByExampleWithBLOBs(@Param("record") PostAccountWithBLOBs record, @Param("example") PostAccountExample example);
 
     int updateByExample(@Param("record") PostAccount record, @Param("example") PostAccountExample example);
 
-    int updateByPrimaryKeySelective(PostAccount record);
+    int updateByPrimaryKeySelective(PostAccountWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(PostAccount record);
+    int updateByPrimaryKeyWithBLOBs(PostAccountWithBLOBs record);
 
     int updateByPrimaryKey(PostAccount record);
 }

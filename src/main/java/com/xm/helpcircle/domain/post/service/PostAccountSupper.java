@@ -2,6 +2,7 @@ package com.xm.helpcircle.domain.post.service;
 
 import com.xm.helpcircle.domain.post.entity.PostAccount;
 import com.xm.helpcircle.domain.post.entity.PostAccountExample;
+import com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs;
 import com.xm.helpcircle.domain.post.persistent.PostAccountMapper;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class PostAccountSupper {
     private PostAccountMapper mapper;
 
 
-    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
+    public List<PostAccountWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
         PostAccountExample example = new PostAccountExample();
         if (Strings.isNotBlank(postName)){
             example.createCriteria()
@@ -37,23 +38,23 @@ public class PostAccountSupper {
         }
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);
-        List<PostAccount> postAccountList = mapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(postAccountList))
+        List<PostAccountWithBLOBs> postAccountWithBLOBs = mapper.selectByExampleWithBLOBs(example);
+        if(CollectionUtils.isEmpty(postAccountWithBLOBs))
             return null;
-        return postAccountList;
+        return postAccountWithBLOBs;
     }
 
-    public PostAccount getQuestions(Long postNO) {
+    public PostAccountWithBLOBs getQuestions(Long postNO) {
         PostAccountExample example = new PostAccountExample();
         example.createCriteria().andPostNoEqualTo(postNO.toString());
-        List<PostAccount> postAccounts = mapper.selectByExample(example);
+        List<PostAccountWithBLOBs> postAccounts = mapper.selectByExampleWithBLOBs(example);
         if(CollectionUtils.isEmpty(postAccounts))
             return null;
         return postAccounts.get(0);
     }
 
-    public int getInsert(PostAccount postAccount) {
-        int postAccountId = mapper.insertSelective(postAccount);
+    public int getInsert(PostAccountWithBLOBs postAccountWithBLOBs) {
+        int postAccountId = mapper.insertSelective(postAccountWithBLOBs);
         return postAccountId;
     }
 }

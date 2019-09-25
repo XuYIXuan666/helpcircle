@@ -2,6 +2,7 @@ package com.xm.helpcircle.domain.lost.persistent;
 
 import com.xm.helpcircle.domain.lost.entity.LostAndFound;
 import com.xm.helpcircle.domain.lost.entity.LostAndFoundExample;
+import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,25 +16,25 @@ public interface LostAndFoundMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(LostAndFound record);
+    int insert(LostAndFoundWithBLOBs record);
 
-    int insertSelective(LostAndFound record);
+    int insertSelective(LostAndFoundWithBLOBs record);
 
-    List<LostAndFound> selectByExampleWithBLOBs(LostAndFoundExample example);
+    List<LostAndFoundWithBLOBs> selectByExampleWithBLOBs(LostAndFoundExample example);
 
     List<LostAndFound> selectByExample(LostAndFoundExample example);
 
-    LostAndFound selectByPrimaryKey(Long id);
+    LostAndFoundWithBLOBs selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") LostAndFound record, @Param("example") LostAndFoundExample example);
+    int updateByExampleSelective(@Param("record") LostAndFoundWithBLOBs record, @Param("example") LostAndFoundExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") LostAndFound record, @Param("example") LostAndFoundExample example);
+    int updateByExampleWithBLOBs(@Param("record") LostAndFoundWithBLOBs record, @Param("example") LostAndFoundExample example);
 
     int updateByExample(@Param("record") LostAndFound record, @Param("example") LostAndFoundExample example);
 
-    int updateByPrimaryKeySelective(LostAndFound record);
+    int updateByPrimaryKeySelective(LostAndFoundWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(LostAndFound record);
+    int updateByPrimaryKeyWithBLOBs(LostAndFoundWithBLOBs record);
 
     int updateByPrimaryKey(LostAndFound record);
 }

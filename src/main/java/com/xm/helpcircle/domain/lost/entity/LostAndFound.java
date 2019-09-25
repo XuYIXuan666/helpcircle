@@ -40,10 +40,6 @@ public class LostAndFound implements Serializable {
     private String lostArticleName;
 
     /**
-     * 图片地址, 多个逗号分隔
-     */
-    private String lostArticleUrl;
-    /**
      * 图片地址
      * 非数据库字段
      */
@@ -86,11 +82,6 @@ public class LostAndFound implements Serializable {
      * 备注
      */
     private String remark;
-
-    /**
-     * 物品详情
-     */
-    private String lostArticleDetail;
 
     /**
      * 评论
@@ -155,14 +146,6 @@ public class LostAndFound implements Serializable {
         this.lostArticleName = lostArticleName;
     }
 
-    public String getLostArticleUrl() {
-        return lostArticleUrl;
-    }
-
-    public void setLostArticleUrl(String lostArticleUrl) {
-        this.lostArticleUrl = lostArticleUrl;
-    }
-
     public String getLostArticleStatus() {
         return lostArticleStatus;
     }
@@ -211,14 +194,6 @@ public class LostAndFound implements Serializable {
         this.remark = remark;
     }
 
-    public String getLostArticleDetail() {
-        return lostArticleDetail;
-    }
-
-    public void setLostArticleDetail(String lostArticleDetail) {
-        this.lostArticleDetail = lostArticleDetail;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -237,14 +212,12 @@ public class LostAndFound implements Serializable {
             && (this.getOpenNo() == null ? other.getOpenNo() == null : this.getOpenNo().equals(other.getOpenNo()))
             && (this.getLostArticleClassification() == null ? other.getLostArticleClassification() == null : this.getLostArticleClassification().equals(other.getLostArticleClassification()))
             && (this.getLostArticleName() == null ? other.getLostArticleName() == null : this.getLostArticleName().equals(other.getLostArticleName()))
-            && (this.getLostArticleUrl() == null ? other.getLostArticleUrl() == null : this.getLostArticleUrl().equals(other.getLostArticleUrl()))
             && (this.getLostArticleStatus() == null ? other.getLostArticleStatus() == null : this.getLostArticleStatus().equals(other.getLostArticleStatus()))
             && (this.getLostArticleDelete() == null ? other.getLostArticleDelete() == null : this.getLostArticleDelete().equals(other.getLostArticleDelete()))
             && (this.getLostArticleLatitude() == null ? other.getLostArticleLatitude() == null : this.getLostArticleLatitude().equals(other.getLostArticleLatitude()))
             && (this.getLostArticleLongitude() == null ? other.getLostArticleLongitude() == null : this.getLostArticleLongitude().equals(other.getLostArticleLongitude()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getLostArticleDetail() == null ? other.getLostArticleDetail() == null : this.getLostArticleDetail().equals(other.getLostArticleDetail()));
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -257,14 +230,12 @@ public class LostAndFound implements Serializable {
         result = prime * result + ((getOpenNo() == null) ? 0 : getOpenNo().hashCode());
         result = prime * result + ((getLostArticleClassification() == null) ? 0 : getLostArticleClassification().hashCode());
         result = prime * result + ((getLostArticleName() == null) ? 0 : getLostArticleName().hashCode());
-        result = prime * result + ((getLostArticleUrl() == null) ? 0 : getLostArticleUrl().hashCode());
         result = prime * result + ((getLostArticleStatus() == null) ? 0 : getLostArticleStatus().hashCode());
         result = prime * result + ((getLostArticleDelete() == null) ? 0 : getLostArticleDelete().hashCode());
         result = prime * result + ((getLostArticleLatitude() == null) ? 0 : getLostArticleLatitude().hashCode());
         result = prime * result + ((getLostArticleLongitude() == null) ? 0 : getLostArticleLongitude().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
-        result = prime * result + ((getLostArticleDetail() == null) ? 0 : getLostArticleDetail().hashCode());
         return result;
     }
 
@@ -280,14 +251,12 @@ public class LostAndFound implements Serializable {
         sb.append(", openNo=").append(openNo);
         sb.append(", lostArticleClassification=").append(lostArticleClassification);
         sb.append(", lostArticleName=").append(lostArticleName);
-        sb.append(", lostArticleUrl=").append(lostArticleUrl);
         sb.append(", lostArticleStatus=").append(lostArticleStatus);
         sb.append(", lostArticleDelete=").append(lostArticleDelete);
         sb.append(", lostArticleLatitude=").append(lostArticleLatitude);
         sb.append(", lostArticleLongitude=").append(lostArticleLongitude);
         sb.append(", createTime=").append(createTime);
         sb.append(", remark=").append(remark);
-        sb.append(", lostArticleDetail=").append(lostArticleDetail);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

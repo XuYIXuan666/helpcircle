@@ -3,8 +3,11 @@ package com.xm.helpcircle.domain.user.persistent;
 import com.xm.helpcircle.domain.user.entity.UserAccount;
 import com.xm.helpcircle.domain.user.entity.UserAccountExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserAccountMapper {
     long countByExample(UserAccountExample example);
 

@@ -2,6 +2,7 @@ package com.xm.helpcircle.biz.post;
 
 import com.xm.helpcircle.domain.post.entity.PostAccount;
 import com.xm.helpcircle.domain.post.entity.PostAccountComment;
+import com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs;
 import com.xm.helpcircle.domain.post.service.PostAccountCommentService;
 import com.xm.helpcircle.domain.post.service.PostAccountService;
 import org.slf4j.Logger;
@@ -26,8 +27,8 @@ public class PostAccountQuery {
     @Autowired
     private PostAccountCommentService commentService;
 
-    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
-        List<PostAccount> postAccountList = postAccountService.getQuestionsList(status, pageSize, page, postName);
+    public List<PostAccountWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
+        List<PostAccountWithBLOBs> postAccountList = postAccountService.getQuestionsList(status, pageSize, page, postName);
         if(postAccountList != null){
             postAccountList.forEach(postAccount ->{
                 if(postAccount != null && postAccount.getPostUrl() != null && !postAccount.getPostUrl().equals("")){
@@ -41,8 +42,8 @@ public class PostAccountQuery {
         return postAccountList;
     }
 
-    public PostAccount getQuestions(Long postNo) {
-        PostAccount postAccount = postAccountService.getQuestions(postNo);
+    public PostAccountWithBLOBs getQuestions(Long postNo) {
+        PostAccountWithBLOBs postAccount = postAccountService.getQuestions(postNo);
         if(postAccount != null && postAccount.getPostUrl() != null && !postAccount.getPostUrl().equals("")){
             postAccount.setPostUrlList(Arrays.asList(postAccount.getPostUrl().split("\\|")));
         }

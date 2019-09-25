@@ -1,6 +1,7 @@
 package com.xm.helpcircle.domain.lost.service;
 
 import com.xm.helpcircle.domain.lost.entity.LostAndFound;
+import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,18 +17,18 @@ public class LostAndFoundService {
     @Autowired
     private LostAndFoundSupport lostAndFoundSupport;
 
-    public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
-        List<LostAndFound> lostAndFoundList = lostAndFoundSupport.getQuestionsList(status, pageSize, page, lostName);
+    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundSupport.getQuestionsList(status, pageSize, page, lostName);
         return lostAndFoundList;
     }
 
-    public LostAndFound getQuestions(String lostArticleNo) {
-        LostAndFound lostAndFound = lostAndFoundSupport.getQuestions(lostArticleNo);
+    public LostAndFoundWithBLOBs getQuestions(String lostArticleNo) {
+        LostAndFoundWithBLOBs lostAndFound = lostAndFoundSupport.getQuestions(lostArticleNo);
         return lostAndFound;
     }
 
-    public int getInsert(LostAndFound lostAndFound) {
-        int lostAndFoundId = lostAndFoundSupport.getInsert(lostAndFound);
+    public int getInsert(LostAndFoundWithBLOBs lostAndFoundWithBLOBs) {
+        int lostAndFoundId = lostAndFoundSupport.getInsert(lostAndFoundWithBLOBs);
         return lostAndFoundId;
     }
 }

@@ -1,6 +1,7 @@
 package com.xm.helpcircle.domain.post.service;
 
 import com.xm.helpcircle.domain.post.entity.PostAccount;
+import com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,18 @@ public class PostAccountService {
     private PostAccountSupper supper;
 
 
-    public List<PostAccount> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
-        List<PostAccount> postAccountList = supper.getQuestionsList(status, pageSize, page, postName);
+    public List<PostAccountWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String postName) {
+        List<PostAccountWithBLOBs> postAccountList = supper.getQuestionsList(status, pageSize, page, postName);
         return postAccountList;
     }
 
-    public PostAccount getQuestions(Long lostArticleNo) {
-        PostAccount postAccount = supper.getQuestions(lostArticleNo);
+    public PostAccountWithBLOBs getQuestions(Long lostArticleNo) {
+        PostAccountWithBLOBs postAccount = supper.getQuestions(lostArticleNo);
         return postAccount;
     }
 
-    public int getInsert(PostAccount postAccount) {
-        int postAccountId = supper.getInsert(postAccount);
+    public int getInsert(PostAccountWithBLOBs postAccountWithBLOBs) {
+        int postAccountId = supper.getInsert(postAccountWithBLOBs);
         return postAccountId;
     }
 }

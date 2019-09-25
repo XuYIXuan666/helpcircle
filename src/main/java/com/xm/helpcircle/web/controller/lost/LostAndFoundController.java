@@ -1,5 +1,6 @@
 package com.xm.helpcircle.web.controller.lost;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xm.helpcircle.biz.lost.LostAndFoundAction;
 import com.xm.helpcircle.biz.lost.LostAndFoundCommentAction;
 import com.xm.helpcircle.biz.lost.LostAndFoundQuery;
@@ -7,6 +8,7 @@ import com.xm.helpcircle.common.enums.LostAndFoundStatusEnum;
 import com.xm.helpcircle.common.utils.FileUtils;
 import com.xm.helpcircle.domain.lost.entity.LostAndFound;
 import com.xm.helpcircle.domain.lost.entity.LostAndFoundComment;
+import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import com.xm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 import static com.xm.helpcircle.common.utils.CodeGenerator.getOrderNo;
 
@@ -70,15 +70,16 @@ public class LostAndFoundController {
     }
     /**
      * 失物招领添加(发布)
-     * @param lostAndFound
+     * @param lostAndFoundWithBLOBs
      * @return
      */
     @PostMapping("/ques/insert")
     @ResponseBody
-    public WebReturn quesInsert(@RequestBody LostAndFound lostAndFound){
-        lostAndFound.setLostArticleStatus(LostAndFoundStatusEnum.UNCOLLECTED.getType());
-        lostAndFound.setLostArticleNo(getOrderNo("ques"));
-        int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFound);
+    public WebReturn quesInsert(@RequestBody LostAndFoundWithBLOBs lostAndFoundWithBLOBs){
+        lostAndFoundWithBLOBs.setLostArticleStatus(LostAndFoundStatusEnum.UNCOLLECTED.getType());
+        lostAndFoundWithBLOBs.setLostArticleNo(getOrderNo("ques"));
+        logger.info(JSONObject.toJSONString(lostAndFoundWithBLOBs));
+        int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFoundWithBLOBs);
         return WebReturn.success(lostAndFoundId);
     }
 

@@ -8,7 +8,6 @@
     <result column="open_no" jdbcType="VARCHAR" property="openNo" />
     <result column="post_classification" jdbcType="VARCHAR" property="postClassification" />
     <result column="post_name" jdbcType="VARCHAR" property="postName" />
-    <result column="post_url" jdbcType="VARCHAR" property="postUrl" />
     <result column="post_status" jdbcType="VARCHAR" property="postStatus" />
     <result column="post_delete" jdbcType="VARCHAR" property="postDelete" />
     <result column="post_latitude" jdbcType="DECIMAL" property="postLatitude" />
@@ -16,8 +15,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.post.entity.PostAccount">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs">
     <result column="post_detail" jdbcType="LONGVARCHAR" property="postDetail" />
+    <result column="post_url" jdbcType="LONGVARCHAR" property="postUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,11 +78,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, post_no, user_no, open_no, post_classification, post_name, post_url, post_status, 
-    post_delete, post_latitude, post_longitude, create_time, remark
+    id, post_no, user_no, open_no, post_classification, post_name, post_status, post_delete, 
+    post_latitude, post_longitude, create_time, remark
   </sql>
   <sql id="Blob_Column_List">
-    post_detail
+    post_detail, post_url
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountExample" resultMap="ResultMapWithBLOBs">
     select
@@ -148,19 +148,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
+  <insert id="insert" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs">
     insert into post_account (id, post_no, user_no, 
       open_no, post_classification, post_name, 
-      post_url, post_status, post_delete, 
-      post_latitude, post_longitude, create_time, 
-      remark, post_detail)
+      post_status, post_delete, post_latitude, 
+      post_longitude, create_time, remark, 
+      post_detail, post_url)
     values (#{id,jdbcType=BIGINT}, #{postNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
       #{openNo,jdbcType=VARCHAR}, #{postClassification,jdbcType=VARCHAR}, #{postName,jdbcType=VARCHAR}, 
-      #{postUrl,jdbcType=VARCHAR}, #{postStatus,jdbcType=VARCHAR}, #{postDelete,jdbcType=VARCHAR}, 
-      #{postLatitude,jdbcType=DECIMAL}, #{postLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR}, #{postDetail,jdbcType=LONGVARCHAR})
+      #{postStatus,jdbcType=VARCHAR}, #{postDelete,jdbcType=VARCHAR}, #{postLatitude,jdbcType=DECIMAL}, 
+      #{postLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{postDetail,jdbcType=LONGVARCHAR}, #{postUrl,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs">
     insert into post_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -180,9 +180,6 @@
       </if>
       <if test="postName != null">
         post_name,
-      </if>
-      <if test="postUrl != null">
-        post_url,
       </if>
       <if test="postStatus != null">
         post_status,
@@ -205,6 +202,9 @@
       <if test="postDetail != null">
         post_detail,
       </if>
+      <if test="postUrl != null">
+        post_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -224,9 +224,6 @@
       </if>
       <if test="postName != null">
         #{postName,jdbcType=VARCHAR},
-      </if>
-      <if test="postUrl != null">
-        #{postUrl,jdbcType=VARCHAR},
       </if>
       <if test="postStatus != null">
         #{postStatus,jdbcType=VARCHAR},
@@ -248,6 +245,9 @@
       </if>
       <if test="postDetail != null">
         #{postDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="postUrl != null">
+        #{postUrl,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -278,9 +278,6 @@
       <if test="record.postName != null">
         post_name = #{record.postName,jdbcType=VARCHAR},
       </if>
-      <if test="record.postUrl != null">
-        post_url = #{record.postUrl,jdbcType=VARCHAR},
-      </if>
       <if test="record.postStatus != null">
         post_status = #{record.postStatus,jdbcType=VARCHAR},
       </if>
@@ -302,6 +299,9 @@
       <if test="record.postDetail != null">
         post_detail = #{record.postDetail,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.postUrl != null">
+        post_url = #{record.postUrl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -315,14 +315,14 @@
       open_no = #{record.openNo,jdbcType=VARCHAR},
       post_classification = #{record.postClassification,jdbcType=VARCHAR},
       post_name = #{record.postName,jdbcType=VARCHAR},
-      post_url = #{record.postUrl,jdbcType=VARCHAR},
       post_status = #{record.postStatus,jdbcType=VARCHAR},
       post_delete = #{record.postDelete,jdbcType=VARCHAR},
       post_latitude = #{record.postLatitude,jdbcType=DECIMAL},
       post_longitude = #{record.postLongitude,jdbcType=DECIMAL},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR},
-      post_detail = #{record.postDetail,jdbcType=LONGVARCHAR}
+      post_detail = #{record.postDetail,jdbcType=LONGVARCHAR},
+      post_url = #{record.postUrl,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -335,7 +335,6 @@
       open_no = #{record.openNo,jdbcType=VARCHAR},
       post_classification = #{record.postClassification,jdbcType=VARCHAR},
       post_name = #{record.postName,jdbcType=VARCHAR},
-      post_url = #{record.postUrl,jdbcType=VARCHAR},
       post_status = #{record.postStatus,jdbcType=VARCHAR},
       post_delete = #{record.postDelete,jdbcType=VARCHAR},
       post_latitude = #{record.postLatitude,jdbcType=DECIMAL},
@@ -346,7 +345,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs">
     update post_account
     <set>
       <if test="postNo != null">
@@ -363,9 +362,6 @@
       </if>
       <if test="postName != null">
         post_name = #{postName,jdbcType=VARCHAR},
-      </if>
-      <if test="postUrl != null">
-        post_url = #{postUrl,jdbcType=VARCHAR},
       </if>
       <if test="postStatus != null">
         post_status = #{postStatus,jdbcType=VARCHAR},
@@ -388,24 +384,27 @@
       <if test="postDetail != null">
         post_detail = #{postDetail,jdbcType=LONGVARCHAR},
       </if>
+      <if test="postUrl != null">
+        post_url = #{postUrl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs">
     update post_account
     set post_no = #{postNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
       open_no = #{openNo,jdbcType=VARCHAR},
       post_classification = #{postClassification,jdbcType=VARCHAR},
       post_name = #{postName,jdbcType=VARCHAR},
-      post_url = #{postUrl,jdbcType=VARCHAR},
       post_status = #{postStatus,jdbcType=VARCHAR},
       post_delete = #{postDelete,jdbcType=VARCHAR},
       post_latitude = #{postLatitude,jdbcType=DECIMAL},
       post_longitude = #{postLongitude,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
-      post_detail = #{postDetail,jdbcType=LONGVARCHAR}
+      post_detail = #{postDetail,jdbcType=LONGVARCHAR},
+      post_url = #{postUrl,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xm.helpcircle.domain.post.entity.PostAccount">
@@ -415,7 +414,6 @@
       open_no = #{openNo,jdbcType=VARCHAR},
       post_classification = #{postClassification,jdbcType=VARCHAR},
       post_name = #{postName,jdbcType=VARCHAR},
-      post_url = #{postUrl,jdbcType=VARCHAR},
       post_status = #{postStatus,jdbcType=VARCHAR},
       post_delete = #{postDelete,jdbcType=VARCHAR},
       post_latitude = #{postLatitude,jdbcType=DECIMAL},

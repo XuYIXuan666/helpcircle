@@ -40,10 +40,6 @@ public class PostAccount implements Serializable {
     private String postName;
 
     /**
-     * 图片地址, 多个|分隔
-     */
-    private String postUrl;
-    /**
      * 图片地址
      * 非数据库字段
      */
@@ -87,10 +83,6 @@ public class PostAccount implements Serializable {
      */
     private String remark;
 
-    /**
-     * 帖子详情
-     */
-    private String postDetail;
 
     private List<PostAccountComment> postAccountComments;
 
@@ -152,14 +144,6 @@ public class PostAccount implements Serializable {
         this.postName = postName;
     }
 
-    public String getPostUrl() {
-        return postUrl;
-    }
-
-    public void setPostUrl(String postUrl) {
-        this.postUrl = postUrl;
-    }
-
     public String getPostStatus() {
         return postStatus;
     }
@@ -208,14 +192,6 @@ public class PostAccount implements Serializable {
         this.remark = remark;
     }
 
-    public String getPostDetail() {
-        return postDetail;
-    }
-
-    public void setPostDetail(String postDetail) {
-        this.postDetail = postDetail;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -234,14 +210,12 @@ public class PostAccount implements Serializable {
             && (this.getOpenNo() == null ? other.getOpenNo() == null : this.getOpenNo().equals(other.getOpenNo()))
             && (this.getPostClassification() == null ? other.getPostClassification() == null : this.getPostClassification().equals(other.getPostClassification()))
             && (this.getPostName() == null ? other.getPostName() == null : this.getPostName().equals(other.getPostName()))
-            && (this.getPostUrl() == null ? other.getPostUrl() == null : this.getPostUrl().equals(other.getPostUrl()))
             && (this.getPostStatus() == null ? other.getPostStatus() == null : this.getPostStatus().equals(other.getPostStatus()))
             && (this.getPostDelete() == null ? other.getPostDelete() == null : this.getPostDelete().equals(other.getPostDelete()))
             && (this.getPostLatitude() == null ? other.getPostLatitude() == null : this.getPostLatitude().equals(other.getPostLatitude()))
             && (this.getPostLongitude() == null ? other.getPostLongitude() == null : this.getPostLongitude().equals(other.getPostLongitude()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getPostDetail() == null ? other.getPostDetail() == null : this.getPostDetail().equals(other.getPostDetail()));
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -254,14 +228,12 @@ public class PostAccount implements Serializable {
         result = prime * result + ((getOpenNo() == null) ? 0 : getOpenNo().hashCode());
         result = prime * result + ((getPostClassification() == null) ? 0 : getPostClassification().hashCode());
         result = prime * result + ((getPostName() == null) ? 0 : getPostName().hashCode());
-        result = prime * result + ((getPostUrl() == null) ? 0 : getPostUrl().hashCode());
         result = prime * result + ((getPostStatus() == null) ? 0 : getPostStatus().hashCode());
         result = prime * result + ((getPostDelete() == null) ? 0 : getPostDelete().hashCode());
         result = prime * result + ((getPostLatitude() == null) ? 0 : getPostLatitude().hashCode());
         result = prime * result + ((getPostLongitude() == null) ? 0 : getPostLongitude().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
-        result = prime * result + ((getPostDetail() == null) ? 0 : getPostDetail().hashCode());
         return result;
     }
 
@@ -277,14 +249,12 @@ public class PostAccount implements Serializable {
         sb.append(", openNo=").append(openNo);
         sb.append(", postClassification=").append(postClassification);
         sb.append(", postName=").append(postName);
-        sb.append(", postUrl=").append(postUrl);
         sb.append(", postStatus=").append(postStatus);
         sb.append(", postDelete=").append(postDelete);
         sb.append(", postLatitude=").append(postLatitude);
         sb.append(", postLongitude=").append(postLongitude);
         sb.append(", createTime=").append(createTime);
         sb.append(", remark=").append(remark);
-        sb.append(", postDetail=").append(postDetail);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

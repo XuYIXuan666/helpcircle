@@ -1,6 +1,6 @@
 package com.xm.helpcircle.biz.lost;
 
-import com.xm.helpcircle.domain.lost.entity.LostAndFound;
+import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import com.xm.helpcircle.domain.lost.service.LostAndFoundService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ public class LostAndFoundAction {
     @Autowired
     private LostAndFoundService lostAndFoundService;
 
-    public int getInsert(LostAndFound lostAndFound) {
-        int lostAndFoundId = lostAndFoundService.getInsert(lostAndFound);
+    public int getInsert(LostAndFoundWithBLOBs lostAndFoundWithBLOBs) {
+        int lostAndFoundId = lostAndFoundService.getInsert(lostAndFoundWithBLOBs);
         return lostAndFoundId;
     }
 }

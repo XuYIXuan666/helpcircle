@@ -8,6 +8,7 @@ import com.xm.helpcircle.common.enums.PostAccountStatusEnum;
 import com.xm.helpcircle.common.utils.FileUtils;
 import com.xm.helpcircle.domain.post.entity.PostAccount;
 import com.xm.helpcircle.domain.post.entity.PostAccountComment;
+import com.xm.helpcircle.domain.post.entity.PostAccountWithBLOBs;
 import com.xm.helpcircle.web.controller.config.WebReturn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class PostAccountController {
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
         String  status = PostAccountStatusEnum.UNDELETED.getType();
-        List<PostAccount> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page,postName);
+        List<PostAccountWithBLOBs> lostAndFoundList = postAccountQuery.getQuestionsList(status, pageSize, page,postName);
         return WebReturn.success(lostAndFoundList);
     }
     /**
@@ -68,21 +69,21 @@ public class PostAccountController {
     @GetMapping("/post/details")
     @ResponseBody
     public WebReturn quesDetails(@NotNull(message = "物品编号不能为空") @RequestParam(required = false) Long postNO){
-        PostAccount postAccount = postAccountQuery.getQuestions(postNO);
-        return WebReturn.success(postAccount);
+        PostAccountWithBLOBs postAccountWithBLOBs = postAccountQuery.getQuestions(postNO);
+        return WebReturn.success(postAccountWithBLOBs);
     }
     /**
      * 帖子添加(发布)
-     * @param postAccount
+     * @param postAccountWithBLOBs
      * @return
      */
     @PostMapping("/post/insert")
     @ResponseBody
-    public WebReturn quesInsert(@RequestBody PostAccount postAccount){
-        postAccount.setPostStatus(PostAccountStatusEnum.UNDELETED.getType());
-        postAccount.setPostNo(getOrderNo("post"));
-        logger.info(JSONObject.toJSONString(postAccount));
-        int postAccountId = postAccountAction.getInsert(postAccount);
+    public WebReturn quesInsert(@RequestBody PostAccountWithBLOBs postAccountWithBLOBs){
+        postAccountWithBLOBs.setPostStatus(PostAccountStatusEnum.UNDELETED.getType());
+        postAccountWithBLOBs.setPostNo(getOrderNo("post"));
+        logger.info(JSONObject.toJSONString(postAccountWithBLOBs));
+        int postAccountId = postAccountAction.getInsert(postAccountWithBLOBs);
         return WebReturn.success(postAccountId);
     }
 

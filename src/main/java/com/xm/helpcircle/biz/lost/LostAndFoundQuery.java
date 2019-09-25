@@ -2,6 +2,7 @@ package com.xm.helpcircle.biz.lost;
 
 import com.xm.helpcircle.domain.lost.entity.LostAndFound;
 import com.xm.helpcircle.domain.lost.entity.LostAndFoundComment;
+import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import com.xm.helpcircle.domain.lost.service.LostAndFoundCommentService;
 import com.xm.helpcircle.domain.lost.service.LostAndFoundService;
 import org.slf4j.Logger;
@@ -28,8 +29,8 @@ public class LostAndFoundQuery {
     @Autowired
     private LostAndFoundCommentService commentService;
 
-    public List<LostAndFound> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
-        List<LostAndFound> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
+    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
         if(lostAndFoundList != null){
             lostAndFoundList.forEach(lostAndFound -> {
                 if(lostAndFound != null && lostAndFound.getLostArticleUrl() != null && !lostAndFound.getLostArticleUrl().equals("")){
@@ -43,8 +44,8 @@ public class LostAndFoundQuery {
         return lostAndFoundList;
     }
 
-    public LostAndFound getQuestions(String lostArticleNo) {
-        LostAndFound lostAndFound = lostAndFoundService.getQuestions(lostArticleNo);
+    public LostAndFoundWithBLOBs getQuestions(String lostArticleNo) {
+        LostAndFoundWithBLOBs lostAndFound = lostAndFoundService.getQuestions(lostArticleNo);
         if(lostAndFound != null && lostAndFound.getLostArticleUrl() != null && !lostAndFound.getLostArticleUrl().equals("")){
             lostAndFound.setLostArticleUrlList(Arrays.asList(lostAndFound.getLostArticleUrl().split("\\|")));
         }

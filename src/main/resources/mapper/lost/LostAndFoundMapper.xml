@@ -8,7 +8,6 @@
     <result column="open_no" jdbcType="VARCHAR" property="openNo" />
     <result column="lost_article_classification" jdbcType="VARCHAR" property="lostArticleClassification" />
     <result column="lost_article_name" jdbcType="VARCHAR" property="lostArticleName" />
-    <result column="lost_article_url" jdbcType="VARCHAR" property="lostArticleUrl" />
     <result column="lost_article_status" jdbcType="VARCHAR" property="lostArticleStatus" />
     <result column="lost_article_delete" jdbcType="VARCHAR" property="lostArticleDelete" />
     <result column="lost_article_latitude" jdbcType="DECIMAL" property="lostArticleLatitude" />
@@ -16,8 +15,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.lost.entity.LostAndFound">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs">
     <result column="lost_article_detail" jdbcType="LONGVARCHAR" property="lostArticleDetail" />
+    <result column="lost_article_url" jdbcType="LONGVARCHAR" property="lostArticleUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -79,11 +79,11 @@
   </sql>
   <sql id="Base_Column_List">
     id, lost_article_no, user_no, open_no, lost_article_classification, lost_article_name, 
-    lost_article_url, lost_article_status, lost_article_delete, lost_article_latitude, 
-    lost_article_longitude, create_time, remark
+    lost_article_status, lost_article_delete, lost_article_latitude, lost_article_longitude, 
+    create_time, remark
   </sql>
   <sql id="Blob_Column_List">
-    lost_article_detail
+    lost_article_detail, lost_article_url
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundExample" resultMap="ResultMapWithBLOBs">
     select
@@ -149,21 +149,21 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
+  <insert id="insert" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs">
     insert into lost_and_found (id, lost_article_no, user_no, 
       open_no, lost_article_classification, lost_article_name, 
-      lost_article_url, lost_article_status, lost_article_delete, 
-      lost_article_latitude, lost_article_longitude, 
-      create_time, remark, lost_article_detail
+      lost_article_status, lost_article_delete, lost_article_latitude, 
+      lost_article_longitude, create_time, remark, 
+      lost_article_detail, lost_article_url
       )
     values (#{id,jdbcType=BIGINT}, #{lostArticleNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
       #{openNo,jdbcType=VARCHAR}, #{lostArticleClassification,jdbcType=VARCHAR}, #{lostArticleName,jdbcType=VARCHAR}, 
-      #{lostArticleUrl,jdbcType=VARCHAR}, #{lostArticleStatus,jdbcType=VARCHAR}, #{lostArticleDelete,jdbcType=VARCHAR}, 
-      #{lostArticleLatitude,jdbcType=DECIMAL}, #{lostArticleLongitude,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{lostArticleDetail,jdbcType=LONGVARCHAR}
+      #{lostArticleStatus,jdbcType=VARCHAR}, #{lostArticleDelete,jdbcType=VARCHAR}, #{lostArticleLatitude,jdbcType=DECIMAL}, 
+      #{lostArticleLongitude,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{lostArticleDetail,jdbcType=LONGVARCHAR}, #{lostArticleUrl,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs">
     insert into lost_and_found
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -183,9 +183,6 @@
       </if>
       <if test="lostArticleName != null">
         lost_article_name,
-      </if>
-      <if test="lostArticleUrl != null">
-        lost_article_url,
       </if>
       <if test="lostArticleStatus != null">
         lost_article_status,
@@ -208,6 +205,9 @@
       <if test="lostArticleDetail != null">
         lost_article_detail,
       </if>
+      <if test="lostArticleUrl != null">
+        lost_article_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -227,9 +227,6 @@
       </if>
       <if test="lostArticleName != null">
         #{lostArticleName,jdbcType=VARCHAR},
-      </if>
-      <if test="lostArticleUrl != null">
-        #{lostArticleUrl,jdbcType=VARCHAR},
       </if>
       <if test="lostArticleStatus != null">
         #{lostArticleStatus,jdbcType=VARCHAR},
@@ -251,6 +248,9 @@
       </if>
       <if test="lostArticleDetail != null">
         #{lostArticleDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lostArticleUrl != null">
+        #{lostArticleUrl,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -281,9 +281,6 @@
       <if test="record.lostArticleName != null">
         lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.lostArticleUrl != null">
-        lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
-      </if>
       <if test="record.lostArticleStatus != null">
         lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
       </if>
@@ -305,6 +302,9 @@
       <if test="record.lostArticleDetail != null">
         lost_article_detail = #{record.lostArticleDetail,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.lostArticleUrl != null">
+        lost_article_url = #{record.lostArticleUrl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -318,14 +318,14 @@
       open_no = #{record.openNo,jdbcType=VARCHAR},
       lost_article_classification = #{record.lostArticleClassification,jdbcType=VARCHAR},
       lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
-      lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
       lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
       lost_article_delete = #{record.lostArticleDelete,jdbcType=VARCHAR},
       lost_article_latitude = #{record.lostArticleLatitude,jdbcType=DECIMAL},
       lost_article_longitude = #{record.lostArticleLongitude,jdbcType=DECIMAL},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=VARCHAR},
-      lost_article_detail = #{record.lostArticleDetail,jdbcType=LONGVARCHAR}
+      lost_article_detail = #{record.lostArticleDetail,jdbcType=LONGVARCHAR},
+      lost_article_url = #{record.lostArticleUrl,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -338,7 +338,6 @@
       open_no = #{record.openNo,jdbcType=VARCHAR},
       lost_article_classification = #{record.lostArticleClassification,jdbcType=VARCHAR},
       lost_article_name = #{record.lostArticleName,jdbcType=VARCHAR},
-      lost_article_url = #{record.lostArticleUrl,jdbcType=VARCHAR},
       lost_article_status = #{record.lostArticleStatus,jdbcType=VARCHAR},
       lost_article_delete = #{record.lostArticleDelete,jdbcType=VARCHAR},
       lost_article_latitude = #{record.lostArticleLatitude,jdbcType=DECIMAL},
@@ -349,7 +348,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs">
     update lost_and_found
     <set>
       <if test="lostArticleNo != null">
@@ -366,9 +365,6 @@
       </if>
       <if test="lostArticleName != null">
         lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
-      </if>
-      <if test="lostArticleUrl != null">
-        lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
       </if>
       <if test="lostArticleStatus != null">
         lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
@@ -391,24 +387,27 @@
       <if test="lostArticleDetail != null">
         lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR},
       </if>
+      <if test="lostArticleUrl != null">
+        lost_article_url = #{lostArticleUrl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs">
     update lost_and_found
     set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
       open_no = #{openNo,jdbcType=VARCHAR},
       lost_article_classification = #{lostArticleClassification,jdbcType=VARCHAR},
       lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
-      lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
       lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
       lost_article_delete = #{lostArticleDelete,jdbcType=VARCHAR},
       lost_article_latitude = #{lostArticleLatitude,jdbcType=DECIMAL},
       lost_article_longitude = #{lostArticleLongitude,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
-      lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR}
+      lost_article_detail = #{lostArticleDetail,jdbcType=LONGVARCHAR},
+      lost_article_url = #{lostArticleUrl,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFound">
@@ -418,7 +417,6 @@
       open_no = #{openNo,jdbcType=VARCHAR},
       lost_article_classification = #{lostArticleClassification,jdbcType=VARCHAR},
       lost_article_name = #{lostArticleName,jdbcType=VARCHAR},
-      lost_article_url = #{lostArticleUrl,jdbcType=VARCHAR},
       lost_article_status = #{lostArticleStatus,jdbcType=VARCHAR},
       lost_article_delete = #{lostArticleDelete,jdbcType=VARCHAR},
       lost_article_latitude = #{lostArticleLatitude,jdbcType=DECIMAL},
