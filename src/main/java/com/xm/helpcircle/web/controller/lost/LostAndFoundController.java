@@ -54,7 +54,7 @@ public class LostAndFoundController {
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
         String status = LostAndFoundStatusEnum.UNCOLLECTED.getType();
-        List<LostAndFound> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
         return WebReturn.success(lostAndFoundList);
     }
     /**
@@ -65,7 +65,7 @@ public class LostAndFoundController {
     @GetMapping("/ques/details")
     @ResponseBody
     public WebReturn quesDetails(@NotNull(message = "物品编号不能为空") @RequestParam(required = false) String lostArticleNo){
-        LostAndFound lostAndFound = lostAndFoundQuery.getQuestions(lostArticleNo);
+        LostAndFoundWithBLOBs lostAndFound = lostAndFoundQuery.getQuestions(lostArticleNo);
         return WebReturn.success(lostAndFound);
     }
     /**
