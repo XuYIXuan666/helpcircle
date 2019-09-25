@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Date;
 import java.util.UUID;
 
+import static com.xm.helpcircle.common.utils.CodeGenerator.getOrderNo;
+
 /**
  * @Author XuLiang
  * create 2019-09-12 13:10
@@ -61,8 +63,8 @@ public class UserController {
         }
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
         User user = userQuery.selectById(openid);
-        // uuid生成唯一key，用于维护微信小程序用户与服务端的会话
-        String skey = UUID.randomUUID().toString();
+        //生成唯一key，用于维护微信小程序用户与服务端的会话
+        String skey = getOrderNo("user");
         if (user == null) {
             // 用户信息入库
             String nickName = rawDataJson.getString("nickName");

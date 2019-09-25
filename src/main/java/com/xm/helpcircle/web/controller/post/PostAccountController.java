@@ -1,5 +1,6 @@
 package com.xm.helpcircle.web.controller.post;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xm.helpcircle.biz.post.PostAccountAction;
 import com.xm.helpcircle.biz.post.PostAccountCommentAction;
 import com.xm.helpcircle.biz.post.PostAccountQuery;
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
+
+import static com.xm.helpcircle.common.utils.CodeGenerator.getOrderNo;
 
 
 /**
@@ -77,8 +80,8 @@ public class PostAccountController {
     @ResponseBody
     public WebReturn quesInsert(@RequestBody PostAccount postAccount){
         postAccount.setPostStatus(PostAccountStatusEnum.UNDELETED.getType());
-        String postNo = UUID.randomUUID().toString();
-        postAccount.setPostName(postNo);
+        postAccount.setPostNo(getOrderNo("post"));
+        logger.info(JSONObject.toJSONString(postAccount));
         int postAccountId = postAccountAction.getInsert(postAccount);
         return WebReturn.success(postAccountId);
     }

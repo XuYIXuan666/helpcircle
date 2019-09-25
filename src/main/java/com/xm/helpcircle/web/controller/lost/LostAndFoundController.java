@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
+import static com.xm.helpcircle.common.utils.CodeGenerator.getOrderNo;
+
 /**
  *  失物招领
  */
@@ -75,8 +77,7 @@ public class LostAndFoundController {
     @ResponseBody
     public WebReturn quesInsert(@RequestBody LostAndFound lostAndFound){
         lostAndFound.setLostArticleStatus(LostAndFoundStatusEnum.UNCOLLECTED.getType());
-        String lostArticleNo = UUID.randomUUID().toString();
-        lostAndFound.setLostArticleNo(lostArticleNo);
+        lostAndFound.setLostArticleNo(getOrderNo("ques"));
         int lostAndFoundId = lostAndFoundAction.getInsert(lostAndFound);
         return WebReturn.success(lostAndFoundId);
     }
