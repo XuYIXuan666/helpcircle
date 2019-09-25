@@ -2,6 +2,8 @@ package com.xm.helpcircle.biz.user;
 
 import com.xm.helpcircle.domain.user.entity.User;
 import com.xm.helpcircle.domain.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserQuery {
 
+    private final Logger logger = LoggerFactory.getLogger(UserQuery.class);
 
     @Autowired
     private UserService userService;

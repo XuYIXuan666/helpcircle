@@ -14,7 +14,7 @@ public enum WebReturnEnum {
     SESSION_INVALID("900001", "会话无效"),
     PWD_INVALID("900002", "登录密码不匹配"),
     CHECKCODE_INVALID("900003", "验证码不匹配"),
-
+    SIGNATURE_VERIFICATION("900004","签名校验失败"),
 
 
 

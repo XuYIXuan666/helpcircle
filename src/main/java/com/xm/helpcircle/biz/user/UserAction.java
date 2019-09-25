@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * create 2019-09-12 13:16
  */
 @Component
-public class UserUserAction {
+public class UserAction {
 
     @Autowired
     private UserService userService;
