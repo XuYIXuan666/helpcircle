@@ -19,9 +19,9 @@ public class PostAccountCommentSupper {
     @Autowired
     private PostAccountCommentMapper mapper;
 
-    public List<PostAccountComment>  getQuestions(Long postNO) {
+    public List<PostAccountComment>  getQuestions(String postNO) {
         PostAccountCommentExample example = new PostAccountCommentExample();
-        example.createCriteria().andIdEqualTo(postNO);
+        example.createCriteria().andPostNoEqualTo(postNO);
         List<PostAccountComment> postAccountCommentList = mapper.selectByExample(example);
         if(CollectionUtils.isEmpty(postAccountCommentList))
             return null;

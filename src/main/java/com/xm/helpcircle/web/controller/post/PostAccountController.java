@@ -68,7 +68,7 @@ public class PostAccountController {
      */
     @GetMapping("/post/details")
     @ResponseBody
-    public WebReturn quesDetails(@NotNull(message = "物品编号不能为空") @RequestParam(required = false) Long postNO){
+    public WebReturn quesDetails(@NotNull(message = "物品编号不能为空") @RequestParam(required = false) String postNO){
         PostAccountWithBLOBs postAccountWithBLOBs = postAccountQuery.getQuestions(postNO);
         return WebReturn.success(postAccountWithBLOBs);
     }

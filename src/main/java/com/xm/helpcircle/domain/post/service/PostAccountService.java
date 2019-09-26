@@ -27,7 +27,7 @@ public class PostAccountService {
         return postAccountList;
     }
 
-    public PostAccountWithBLOBs getQuestions(Long lostArticleNo) {
+    public PostAccountWithBLOBs getQuestions(String lostArticleNo) {
         PostAccountWithBLOBs postAccount = supper.getQuestions(lostArticleNo);
         return postAccount;
     }

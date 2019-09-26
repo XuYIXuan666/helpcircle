@@ -16,7 +16,7 @@ public class PostAccountCommentService {
     @Autowired
     private PostAccountCommentSupper supper;
 
-    public List<PostAccountComment>   getQuestions(Long postNO) {
+    public List<PostAccountComment>   getQuestions(String postNO) {
         List<PostAccountComment> postAccountCommentList  = supper.getQuestions(postNO);
         return postAccountCommentList;
     }

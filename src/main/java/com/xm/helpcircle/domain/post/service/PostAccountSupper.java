@@ -44,9 +44,9 @@ public class PostAccountSupper {
         return postAccountWithBLOBs;
     }
 
-    public PostAccountWithBLOBs getQuestions(Long postNO) {
+    public PostAccountWithBLOBs getQuestions(String postNO) {
         PostAccountExample example = new PostAccountExample();
-        example.createCriteria().andPostNoEqualTo(postNO.toString());
+        example.createCriteria().andPostNoEqualTo(postNO);
         List<PostAccountWithBLOBs> postAccounts = mapper.selectByExampleWithBLOBs(example);
         if(CollectionUtils.isEmpty(postAccounts))
             return null;

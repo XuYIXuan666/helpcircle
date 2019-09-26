@@ -42,7 +42,7 @@ public class PostAccountQuery {
         return postAccountList;
     }
 
-    public PostAccountWithBLOBs getQuestions(Long postNo) {
+    public PostAccountWithBLOBs getQuestions(String postNo) {
         PostAccountWithBLOBs postAccount = postAccountService.getQuestions(postNo);
         if(postAccount != null && postAccount.getPostUrl() != null && !postAccount.getPostUrl().equals("")){
             postAccount.setPostUrlList(Arrays.asList(postAccount.getPostUrl().split("\\|")));
