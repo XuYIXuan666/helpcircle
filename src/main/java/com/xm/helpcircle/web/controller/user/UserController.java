@@ -17,8 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.UUID;
 
@@ -49,12 +52,13 @@ public class UserController {
      */
     @PostMapping("wx/login")
     @ResponseBody
-    public WebReturn user_login(@RequestParam(value = "code", required = false) String code,
-                                @RequestParam(value = "rawData", required = false) String rawData,
-                                @RequestParam(value = "signature", required = false) String signature,
-                                @RequestParam(value = "encrypteData", required = false) String encrypteData,
-                                @RequestParam(value = "iv", required = false) String iv) {
-
+    public WebReturn user_login(@RequestBody String data) {
+        JSONObject dataJson = JSON.parseObject(data);
+        String code = dataJson.getString("code");
+        String encrypteData = dataJson.getString("encrypteData");
+        String iv = dataJson.getString("iv");
+        String signature = dataJson.getString("signature");
+        String rawData = dataJson.getString("rawData");
         // 用户非敏感信息：rawData
         // 签名：signature
         JSONObject rawDataJson = JSON.parseObject(rawData);
