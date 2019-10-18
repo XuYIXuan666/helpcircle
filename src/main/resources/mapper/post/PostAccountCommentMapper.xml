@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xm.helpcircle.domain.post.persistent.PostAccountCommentMapper">
+<mapper namespace="om.xm.helpcircle.domain.post.persistent.PostAccountCommentMapper">
   <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.post.entity.PostAccountComment">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="post_no" jdbcType="VARCHAR" property="postNo" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="open_no" jdbcType="VARCHAR" property="openNo" />
     <result column="post_comment_content" jdbcType="VARCHAR" property="postCommentContent" />
     <result column="post_comment_delete" jdbcType="VARCHAR" property="postCommentDelete" />
@@ -70,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, post_no, user_no, open_no, post_comment_content, post_comment_delete, create_time, 
-    remark
+    id, post_no, user_no, user_name, open_no, post_comment_content, post_comment_delete, 
+    create_time, remark
   </sql>
   <select id="selectByExample" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountCommentExample" resultMap="BaseResultMap">
     select
@@ -113,13 +114,15 @@
   </delete>
   <insert id="insert" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountComment">
     insert into post_account_comment (id, post_no, user_no, 
-      open_no, post_comment_content, post_comment_delete, 
-      create_time, remark)
+      user_name, open_no, post_comment_content, 
+      post_comment_delete, create_time, remark
+      )
     values (#{id,jdbcType=BIGINT}, #{postNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
-      #{openNo,jdbcType=VARCHAR}, #{postCommentContent,jdbcType=VARCHAR}, #{postCommentDelete,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+      #{userName,jdbcType=VARCHAR}, #{openNo,jdbcType=VARCHAR}, #{postCommentContent,jdbcType=VARCHAR}, 
+      #{postCommentDelete,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountComment" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.post.entity.PostAccountComment">
     insert into post_account_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -130,6 +133,9 @@
       </if>
       <if test="userNo != null">
         user_no,
+      </if>
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="openNo != null">
         open_no,
@@ -156,6 +162,9 @@
       </if>
       <if test="userNo != null">
         #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="openNo != null">
         #{openNo,jdbcType=VARCHAR},
@@ -192,6 +201,9 @@
       <if test="record.userNo != null">
         user_no = #{record.userNo,jdbcType=VARCHAR},
       </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
       <if test="record.openNo != null">
         open_no = #{record.openNo,jdbcType=VARCHAR},
       </if>
@@ -217,6 +229,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       post_no = #{record.postNo,jdbcType=VARCHAR},
       user_no = #{record.userNo,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       open_no = #{record.openNo,jdbcType=VARCHAR},
       post_comment_content = #{record.postCommentContent,jdbcType=VARCHAR},
       post_comment_delete = #{record.postCommentDelete,jdbcType=VARCHAR},
@@ -234,6 +247,9 @@
       </if>
       <if test="userNo != null">
         user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="openNo != null">
         open_no = #{openNo,jdbcType=VARCHAR},
@@ -257,6 +273,7 @@
     update post_account_comment
     set post_no = #{postNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       open_no = #{openNo,jdbcType=VARCHAR},
       post_comment_content = #{postCommentContent,jdbcType=VARCHAR},
       post_comment_delete = #{postCommentDelete,jdbcType=VARCHAR},

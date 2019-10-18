@@ -83,7 +83,11 @@ public class PostAccount implements Serializable {
      */
     private String remark;
 
-
+    /**
+     *
+     * 评论
+     * 非数据库字段
+     */
     private List<PostAccountComment> postAccountComments;
 
     public List<PostAccountComment> getPostAccountComments() {
