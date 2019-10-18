@@ -6,7 +6,6 @@ import com.xm.helpcircle.biz.lost.LostAndFoundCommentAction;
 import com.xm.helpcircle.biz.lost.LostAndFoundQuery;
 import com.xm.helpcircle.common.enums.LostAndFoundStatusEnum;
 import com.xm.helpcircle.common.utils.FileUtils;
-import com.xm.helpcircle.domain.lost.entity.LostAndFound;
 import com.xm.helpcircle.domain.lost.entity.LostAndFoundComment;
 import com.xm.helpcircle.domain.lost.entity.LostAndFoundWithBLOBs;
 import com.xm.helpcircle.web.controller.config.WebReturn;
@@ -51,10 +50,11 @@ public class LostAndFoundController {
     @ResponseBody
     public WebReturn quesList(
                           @RequestParam(required = false)String lostName,
+                          @NotNull(message = "物品分类不能为空") @RequestParam(required = false) String lostArticleClassification,
                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                           @RequestParam Long page){
         String status = LostAndFoundStatusEnum.UNCOLLECTED.getType();
-        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName);
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundQuery.getQuestionsList(status, pageSize, page, lostName,lostArticleClassification);
         return WebReturn.success(lostAndFoundList);
     }
     /**

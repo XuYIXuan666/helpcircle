@@ -1,5 +1,6 @@
 package com.xm.helpcircle.domain.lost.entity;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ public class LostAndFound implements Serializable {
     /**
      * 物品分类;1-捡到,2丢失
      */
+    @NotNull(message = "物品分类不能为空")
     private String lostArticleClassification;
 
     /**

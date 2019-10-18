@@ -29,8 +29,8 @@ public class LostAndFoundQuery {
     @Autowired
     private LostAndFoundCommentService commentService;
 
-    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
-        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName);
+    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName,String lostArticleClassification) {
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundService.getQuestionsList(status, pageSize, page, lostName,lostArticleClassification);
         if(lostAndFoundList != null){
             lostAndFoundList.forEach(lostAndFound -> {
                 if(lostAndFound != null && lostAndFound.getLostArticleUrl() != null && !lostAndFound.getLostArticleUrl().equals("")){

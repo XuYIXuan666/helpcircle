@@ -17,8 +17,8 @@ public class LostAndFoundService {
     @Autowired
     private LostAndFoundSupport lostAndFoundSupport;
 
-    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
-        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundSupport.getQuestionsList(status, pageSize, page, lostName);
+    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName,String lostArticleClassification) {
+        List<LostAndFoundWithBLOBs> lostAndFoundList = lostAndFoundSupport.getQuestionsList(status, pageSize, page, lostName,lostArticleClassification);
         return lostAndFoundList;
     }
 

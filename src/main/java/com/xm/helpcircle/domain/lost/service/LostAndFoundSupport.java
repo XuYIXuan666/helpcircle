@@ -21,15 +21,18 @@ public class LostAndFoundSupport {
     @Autowired
     private LostAndFoundMapper mapper;
 
-    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName) {
+    public List<LostAndFoundWithBLOBs> getQuestionsList(String status, Integer pageSize, Long page, String lostName,String lostArticleClassification) {
         LostAndFoundExample example = new LostAndFoundExample();
         if (Strings.isNotBlank(lostName)){
             example.createCriteria()
                     .andLostArticleStatusEqualTo(status)
+                    .andLostArticleClassificationEqualTo(lostArticleClassification)
                     .andLostArticleNameLike("%"+lostName+"%");
         }else {
             example.createCriteria()
+                    .andLostArticleClassificationEqualTo(lostArticleClassification)
                     .andLostArticleStatusEqualTo(status);
+
         }
         example.setLimit(pageSize);
         example.setOffset((page-1)*pageSize);
