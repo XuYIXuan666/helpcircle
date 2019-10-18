@@ -24,6 +24,11 @@ public class LostAndFoundComment implements Serializable {
     private String userNo;
 
     /**
+     * 用户昵称
+     */
+    private String userName;
+
+    /**
      * openId
      */
     private String openNo;
@@ -72,6 +77,14 @@ public class LostAndFoundComment implements Serializable {
 
     public void setUserNo(String userNo) {
         this.userNo = userNo;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getOpenNo() {
@@ -129,6 +142,7 @@ public class LostAndFoundComment implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getLostArticleNo() == null ? other.getLostArticleNo() == null : this.getLostArticleNo().equals(other.getLostArticleNo()))
             && (this.getUserNo() == null ? other.getUserNo() == null : this.getUserNo().equals(other.getUserNo()))
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
             && (this.getOpenNo() == null ? other.getOpenNo() == null : this.getOpenNo().equals(other.getOpenNo()))
             && (this.getLostArticleCommentContent() == null ? other.getLostArticleCommentContent() == null : this.getLostArticleCommentContent().equals(other.getLostArticleCommentContent()))
             && (this.getLostArticleCommentDelete() == null ? other.getLostArticleCommentDelete() == null : this.getLostArticleCommentDelete().equals(other.getLostArticleCommentDelete()))
@@ -143,6 +157,7 @@ public class LostAndFoundComment implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getLostArticleNo() == null) ? 0 : getLostArticleNo().hashCode());
         result = prime * result + ((getUserNo() == null) ? 0 : getUserNo().hashCode());
+        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
         result = prime * result + ((getOpenNo() == null) ? 0 : getOpenNo().hashCode());
         result = prime * result + ((getLostArticleCommentContent() == null) ? 0 : getLostArticleCommentContent().hashCode());
         result = prime * result + ((getLostArticleCommentDelete() == null) ? 0 : getLostArticleCommentDelete().hashCode());
@@ -160,6 +175,7 @@ public class LostAndFoundComment implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", lostArticleNo=").append(lostArticleNo);
         sb.append(", userNo=").append(userNo);
+        sb.append(", userName=").append(userName);
         sb.append(", openNo=").append(openNo);
         sb.append(", lostArticleCommentContent=").append(lostArticleCommentContent);
         sb.append(", lostArticleCommentDelete=").append(lostArticleCommentDelete);

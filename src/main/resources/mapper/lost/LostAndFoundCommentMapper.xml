@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xm.helpcircle.domain.lost.persistent.LostAndFoundCommentMapper">
+<mapper namespace="com.xm.helpcircle.domain.lost.entity.LostAndFoundCommentMapper">
   <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.lost.entity.LostAndFoundComment">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="lost_article_no" jdbcType="VARCHAR" property="lostArticleNo" />
     <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="open_no" jdbcType="VARCHAR" property="openNo" />
     <result column="lost_article_comment_content" jdbcType="VARCHAR" property="lostArticleCommentContent" />
     <result column="lost_article_comment_delete" jdbcType="VARCHAR" property="lostArticleCommentDelete" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, lost_article_no, user_no, open_no, lost_article_comment_content, lost_article_comment_delete, 
+    id, lost_article_no, user_no, user_name, open_no, lost_article_comment_content, lost_article_comment_delete, 
     create_time, remark
   </sql>
   <select id="selectByExample" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundCommentExample" resultMap="BaseResultMap">
@@ -113,13 +114,15 @@
   </delete>
   <insert id="insert" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundComment">
     insert into lost_and_found_comment (id, lost_article_no, user_no, 
-      open_no, lost_article_comment_content, lost_article_comment_delete, 
-      create_time, remark)
+      user_name, open_no, lost_article_comment_content, 
+      lost_article_comment_delete, create_time, 
+      remark)
     values (#{id,jdbcType=BIGINT}, #{lostArticleNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
-      #{openNo,jdbcType=VARCHAR}, #{lostArticleCommentContent,jdbcType=VARCHAR}, #{lostArticleCommentDelete,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+      #{userName,jdbcType=VARCHAR}, #{openNo,jdbcType=VARCHAR}, #{lostArticleCommentContent,jdbcType=VARCHAR}, 
+      #{lostArticleCommentDelete,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundComment" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.xm.helpcircle.domain.lost.entity.LostAndFoundComment">
     insert into lost_and_found_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -130,6 +133,9 @@
       </if>
       <if test="userNo != null">
         user_no,
+      </if>
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="openNo != null">
         open_no,
@@ -156,6 +162,9 @@
       </if>
       <if test="userNo != null">
         #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="openNo != null">
         #{openNo,jdbcType=VARCHAR},
@@ -192,6 +201,9 @@
       <if test="record.userNo != null">
         user_no = #{record.userNo,jdbcType=VARCHAR},
       </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
       <if test="record.openNo != null">
         open_no = #{record.openNo,jdbcType=VARCHAR},
       </if>
@@ -217,6 +229,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       lost_article_no = #{record.lostArticleNo,jdbcType=VARCHAR},
       user_no = #{record.userNo,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       open_no = #{record.openNo,jdbcType=VARCHAR},
       lost_article_comment_content = #{record.lostArticleCommentContent,jdbcType=VARCHAR},
       lost_article_comment_delete = #{record.lostArticleCommentDelete,jdbcType=VARCHAR},
@@ -234,6 +247,9 @@
       </if>
       <if test="userNo != null">
         user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="openNo != null">
         open_no = #{openNo,jdbcType=VARCHAR},
@@ -257,6 +273,7 @@
     update lost_and_found_comment
     set lost_article_no = #{lostArticleNo,jdbcType=VARCHAR},
       user_no = #{userNo,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       open_no = #{openNo,jdbcType=VARCHAR},
       lost_article_comment_content = #{lostArticleCommentContent,jdbcType=VARCHAR},
       lost_article_comment_delete = #{lostArticleCommentDelete,jdbcType=VARCHAR},

@@ -85,6 +85,7 @@ public class LostAndFound implements Serializable {
 
     /**
      * 评论
+     * 非数据库字段
      */
     private List<LostAndFoundComment> comments;
 
