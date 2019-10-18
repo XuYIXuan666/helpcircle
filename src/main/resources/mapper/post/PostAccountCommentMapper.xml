@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="om.xm.helpcircle.domain.post.persistent.PostAccountCommentMapper">
+<mapper namespace="com.xm.helpcircle.domain.post.persistent.PostAccountCommentMapper">
   <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.post.entity.PostAccountComment">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="post_no" jdbcType="VARCHAR" property="postNo" />

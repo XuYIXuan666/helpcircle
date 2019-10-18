@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xm.helpcircle.domain.lost.entity.LostAndFoundCommentMapper">
+<mapper namespace="com.xm.helpcircle.domain.lost.persistent.LostAndFoundCommentMapper">
   <resultMap id="BaseResultMap" type="com.xm.helpcircle.domain.lost.entity.LostAndFoundComment">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="lost_article_no" jdbcType="VARCHAR" property="lostArticleNo" />
